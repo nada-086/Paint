@@ -3,18 +3,54 @@
   <head>
     <meta charset="UTF-8">
     <title>Paint</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
   </head>
   <body>
     <div class="container">
       <header>
         Document Name
       </header>
-      <section>
-        <button>New</button>
-        <button>Save</button>
-        <button>Delete</button>
+      <section class="operations">
+        <button class="main-button">
+          <i class="fa fa-file"></i> New
+        </button>
+        <button class="main-button">
+          <i class='fas fa-folder-open'></i> Open
+        </button>
+        <button class="main-button">
+          <i class="fa fa-save" ></i> Save
+        </button>
+        <button class="main-button">
+          <i class="fa fa-remove"></i> Delete
+        </button>
       </section>
-      <aside></aside>
+      <section class="tools">
+        <button class="main-button">
+          <i class="fa fa-undo" style="color:white"></i> Undo
+        </button>
+        <button class="main-button">
+          <i class="fas fa-redo"></i> Redo
+        </button>
+        <button class="main-button">
+          <i class="fas fa-arrows-alt"> Move</i>
+        </button>
+        <button class="main-button">
+          <i class="fas fa-copy"></i> Copy
+        </button>
+      </section>
+      <aside>
+        <div class="part">
+          Shapes
+          <button class="icon"><i class="fas fa-circle"></i></button>
+          <button class="icon"><i class="fas fa-square"></i></button>
+          <button class="icon"><i class="fas fa-grip-lines-vertical" style="color:white"></i></button>
+        </div>
+        <div>
+          Colors
+        </div>
+      </aside>
       <div class="board"></div>
     </div>
   </body>
