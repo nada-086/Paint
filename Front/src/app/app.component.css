@@ -1,0 +1,53 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.container{
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(12, 1fr);
+    width: 100%;
+    margin: 10px auto;
+}
+
+header{
+    background-color: black;
+    grid-column: 1 / 13;
+    grid-row: 1 / 2;
+    color: white;
+    padding: 10px;
+}
+
+section{
+    background-color: black;
+    grid-column: 1 / 13;
+    grid-row: 2 / 3;
+}
+
+aside{
+    background: orange;
+    grid-column: 1 / 2;
+    grid-row: 3 / 13;
+}
+
+.board{
+    background-color: white;
+    grid-column: 2 / 13;
+    grid-row: 3 / 13;
+}
+
+button{
+    font-size: 16px;  
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 16px;
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0;
+}
+
+button:hover{
+    background-color: red;
+}
+
