@@ -38,6 +38,9 @@
           <i class="fas fa-arrows-alt"> Move</i>
         </button>
         <button class="main-button">
+          <i class="fas fa-expand"></i> Resize
+        </button>
+        <button class="main-button">
           <i class="fas fa-copy"></i> Copy
         </button>
         <button class="main-button">
@@ -47,19 +50,16 @@
           <i class="fas fa-cut"></i> Cut
         </button>
         <button class="main-button">
-          <i class="fas fa-expand"></i> Resize
+          <i class="fas fa-eye-dropper"></i> Drop
         </button>
         <button class="main-button">
-          <i class="fas fa-eye-dropper"></i> Drop
+          <i class="fas fa-marker"></i> Pen
         </button>
         <button class="main-button">
           <i class="fas fa-mouse-pointer"></i> Cursor
         </button>
         <button class="main-button">
-          <i class="fas fa-marker"></i> FreeHand
-        </button>
-        <button class="main-button">
-          <i class="fas fa-trash"></i> Remove 
+          <i class="fas fa-trash"></i> Clear 
         </button>
       </section>
       <aside>
@@ -118,7 +118,10 @@
           <button class="color" style="background-color: #7e4a35"></button>
         </div>
       </aside>
-      <div class="board"></div>
+      <div class="board">
+        <canvas id="canvas" width="955" height="500">
+        </canvas>
+      </div> <!--950×497.733-->
       <footer></footer>
     </div>
   </body>
