@@ -20,10 +20,12 @@ body{
 }
 
 header{
-    background-color: var(--item-background, black);
+    background-color: rgb(191,100,56);
     grid-column: 1 / 13;
     grid-row: 1 / 2;
     padding: 10px;
+    width: fit-content;
+    font-size: 25px;
 }
 
 .operations{

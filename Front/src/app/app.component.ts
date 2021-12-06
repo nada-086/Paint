@@ -1,4 +1,5 @@
-import { Component, Injectable } from '@angular/core';
+import { ShapesComponent } from './shapes/shapes.component';
+import { Component, Injectable, ViewChild, ElementRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -9,8 +10,18 @@ import { HttpClient } from '@angular/common/http';
   
 @Injectable()
 export class AppComponent {
-  constructor(private http: HttpClient) {}
-  title:string = 'Document Name';
+  constructor(private http: HttpClient) { }
+  title: string = "Document Name";
+  
+  @ViewChild('canvas', { static: true })
+  canvas: ElementRef<HTMLCanvasElement>;  
+  
+  private ctx: CanvasRenderingContext2D;
+  p: string = "";
+
+  ngOnInit(): void {
+    this.ctx = this.canvas.nativeElement.getContext('2d');
+  }
 
   onClick(operation: string = "", parameter: string = "") {
     
@@ -81,6 +92,10 @@ export class AppComponent {
     // if the object has no color, so it will be considered as setting operation
     // else if the object is already has a color, then it will be considered as resetting operation
   }
+
+  draw(shape: string = "") {
+    
+}
 
   sendRequest(operation: string = "", parameter: string = "") {
     this.http.get('http://localhost:8090/', { // The request never completed
