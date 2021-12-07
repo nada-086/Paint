@@ -1,6 +1,10 @@
+import { clear } from './shapes/clear';
+import { shapeFactory } from './shapes/shapeFactory';
 import { ShapesComponent } from './shapes/shapes.component';
 import { Component, Injectable, ViewChild, ElementRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Shape } from './shapes/Shape';
+import { operations } from './shapes/operations'
 
 @Component({
   selector: 'app-root',
@@ -10,22 +14,22 @@ import { HttpClient } from '@angular/common/http';
   
 @Injectable()
 export class AppComponent {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
   title: string = "Document Name";
-  
   @ViewChild('canvas', { static: true })
   canvas: ElementRef<HTMLCanvasElement>;  
   
   private ctx: CanvasRenderingContext2D;
-  p: string = "";
+
 
   ngOnInit(): void {
     this.ctx = this.canvas.nativeElement.getContext('2d');
   }
-
-  onClick(operation: string = "", parameter: string = "") {
-    
-  }
+  shape = new Shape();
+  idCounter: number = 0;
+  shapes: Shape[] = [];
+  factory = null;
+  operation = null;
 
   newFile(name: string = "") {
     // creating a new file and opening an existing file
@@ -59,13 +63,11 @@ export class AppComponent {
   }
 
   resize() {
-    // the object and the new dimensions
-    // the resize operation will be done using drag and drop or using a box and the user enter the new dimensions
+    this.operation.resize()
   }
 
   drop() {
     // the object needed to be sent and the new color
-
   }
 
   cursor() {
@@ -77,25 +79,31 @@ export class AppComponent {
     // what will be sent
   }
 
-  remove() {
-    // the object needed to sent to the database to remove the corresponding object
+  move() {
+    // this.operation.move(id, x, y);
   }
 
-  createShape(shape: string = "") {
-    // send the object name
-    // ask the user to enter the dimensions of the new shape or make drag and drop
-    // ask the user to enter the position of the object on the screen
+  remove() {
+    this.operation.clear(1);
   }
 
   selectColor(color: string = "") {
-    // the rgb code will be sent
-    // if the object has no color, so it will be considered as setting operation
-    // else if the object is already has a color, then it will be considered as resetting operation
+    this.operation.selectColor(1, color);
   }
 
   draw(shape: string = "") {
-    
-}
+    this.factory = new shapeFactory(this.ctx);
+    this.operation = new operations(this.ctx);
+    this.shape = this.factory.getShape(shape);
+    this.shape.id = this.idCounter;
+    this.idCounter += 1;
+    this.shape.x = 100;
+    this.shape.y = 100;
+    this.shape.draw(100, 100);
+    this.shapes.push(this.shape);
+    this.operation.array = this.shapes;
+    console.log(this.shapes);
+  }
 
   sendRequest(operation: string = "", parameter: string = "") {
     this.http.get('http://localhost:8090/', { // The request never completed

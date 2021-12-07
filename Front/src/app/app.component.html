@@ -58,8 +58,8 @@
         <button class="main-button">
           <i class="fas fa-mouse-pointer"></i> Cursor
         </button>
-        <button class="main-button">
-          <i class="fa fa-remove"></i> Delete
+        <button class="main-button" (click)="remove()">
+          <i class="fa fa-remove"></i> Remove
         </button>
       </section>
       <aside>
@@ -67,14 +67,14 @@
           <div class="sector">Shapes</div>
           <button class="icon" (click)='draw("circle")'><i class="fas fa-circle"></i></button>
           <button class="icon" (click)='draw("rectangle")'><i class="fas fa-square"></i></button>
-          <button class="icon"><span class="greater">&#11042;</span></button>
-          <button class="icon"><span class="greater">&#11039;</span></button>
-          <button class="icon"><span class="greater">&#9204;</span></button>
-          <button class="icon"><span class="greater">&#9699;</span></button>
-          <button class="icon"><span class="greater">&#124;</span></button>
-          <button class="icon"><span class="greater">&#9148;</span></button>
-          <button class="icon"><i class="fas fa-heart"></i></button>
-          <button class="icon"><i class="fas fa-comment"></i></button>
+          <button class="icon" (click)="draw('hexagon')"><span class="greater">&#11042;</span></button>
+          <button class="icon" (click)="draw('pentagon')"><span class="greater">&#11039;</span></button>
+          <button class="icon" (click)="draw('triangle')"><span class="greater">&#9204;</span></button>
+          <button class="icon" (click)="draw('rightTriangle')"><span class="greater">&#9701;</span></button>
+          <button class="icon" (click)="draw('verticalLine')"><span class="greater">&#124;</span></button>
+          <button class="icon" (click)="draw('horizontalLine')"><span class="greater">&#9148;</span></button>
+          <button class="icon" (click)="draw('heart')"><i class="fas fa-heart"></i></button>
+          <button class="icon" (click)="draw('comment')"><i class="fas fa-comment"></i></button>
         </div>
         <div class="part">
           <div class="sector"><i class="fas fa-palette"></i>Colors</div>

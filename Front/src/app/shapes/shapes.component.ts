@@ -1,5 +1,7 @@
+import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { Shape } from './shapeFactory';
+import { Shape } from './Shape';
+import { operations } from './operations';
 
 
 
@@ -18,13 +20,14 @@ export class ShapesComponent implements OnInit {
 }
 
 export class rectangle implements Shape{
-  constructor(private ctx: CanvasRenderingContext2D) {}
+  constructor(private ctx: CanvasRenderingContext2D, private array: Shape[] = []) {}
   length: number = 0;
   width: number = 0;
   x: number = 0; 
   y: number = 0;
+  id: number = 0
+  shapeType: string = "rectangle";
   color: string = "#FFFFFF";
-  id: number = 0;
   draw(w: number, l: number) {
     this.ctx.fillStyle = this.color;
     this.length = l;
@@ -48,13 +51,11 @@ export class rectangle implements Shape{
     this.x = x;
     this.y = y;
     this.draw(this.width, this.length);
+    this.array.splice(this.id, 0, )
   };
-  // It can remove the color only not the stroke
   clear() {
-    this.ctx.fillStyle = 'white';
-    this.ctx.strokeStyle = 'white';
-    this.ctx.fill();
-    this.ctx.stroke();
+    this.array.splice(this.id, 1);
+    
   };
 }
 
@@ -64,8 +65,9 @@ export class circle implements Shape{
   width: number = 0;
   x: number = 0; 
   y: number = 0;
-  color: string = "#FFFFFF";
   id: number = 0;
+  shapeType: string = "circle";
+  color: string = "#FFFFFF";
   draw(w: number, l: number = 0) {
     this.ctx.fillStyle = this.color;
     this.width = w;
@@ -105,8 +107,9 @@ export class triangle implements Shape{
   width: number = 0;
   x: number = 0; 
   y: number = 0;
-  color: string = '#FFFFFF';
   id: number = 0;
+  shapeType: string = "triangle";
+  color: string = '#FFFFFF';
   draw(base: number, height: number) {
     this.ctx.beginPath();
     this.ctx.fillStyle = this.color;
@@ -139,14 +142,54 @@ export class triangle implements Shape{
   clear(){};
 }
 
+export class rightTriangle implements Shape{
+  constructor(private ctx: CanvasRenderingContext2D) {}
+  length: number = 0;
+  width: number = 0;
+  x: number = 0; 
+  y: number = 0;
+  id: number = 0;
+  shapeType: string = "rightTriangle";
+  color: string = "#FFFFFF";
+  draw(w: number, l: number) {
+    this.ctx.beginPath();
+    this.ctx.fillStyle = this.color;
+    this.ctx.moveTo(this.x, this.y);
+    this.ctx.lineTo(this.x + w, this.y);
+    this.ctx.lineTo(this.x + w, this.y + l);
+    this.ctx.closePath()
+    this.ctx.stroke();
+    this.ctx.fill();
+  };
+  setColor(color: string) {
+    this.color = color;
+    this.clear();
+    this.draw(this.width, this.length);
+  };
+  resize(w: number, l: number) {
+    this.length = l;
+    this.width = w;
+    this.clear();
+    this.draw(this.width, this.length);
+  };
+  move(x: number, y: number) {
+    this.x = x;
+    this.y = y;
+    this.clear();
+    this.draw(this.width, this.length);
+  };
+  clear(){};
+}
+
 export class horizontalLine implements Shape{
   constructor(protected ctx: CanvasRenderingContext2D) {}
   length: number = 0;
   width: number = 0;
   x: number = 0; 
   y: number = 0;
-  color: string = "#000000";
   id: number = 0;
+  shapeType: string = "horizontalLine";
+  color: string = "#000000";
   draw(w: number = 0, l: number) {
     this.ctx.beginPath();
     this.ctx.strokeStyle = this.color;
@@ -181,8 +224,9 @@ export class verticalLine implements Shape{
   width: number = 0;
   x: number = 0; 
   y: number = 0;
-  color: string = "#000000";
   id: number = 0;
+  shapeType: string = "verticalLine";
+  color: string = "#000000";
   draw(w: number = 0, l: number) {
     this.ctx.beginPath();
     this.ctx.strokeStyle = this.color;
@@ -211,28 +255,15 @@ export class verticalLine implements Shape{
   clear(){};
 }
 
-export class rhombus implements Shape{
-  length: number;
-    width: number;
-    x: number; 
-    y: number;
-    color: string = "#FFFFFF";
-    id: number;
-    draw(w: number, l: number){};
-    setColor(color: string){};
-    resize(w: number, l: number){};
-    move(x: number, y: number){};
-    clear(){};
-}
-
 export class pentagon implements Shape{
   constructor(private ctx: CanvasRenderingContext2D) {}
   length: number = 0;
   width: number = 0;
   x: number = 0; 
   y: number = 0;
-  color: string = "#FFFFFF";
   id: number = 0;
+  shapeType: string = "pentagon";
+  color: string = "#FFFFFF";
   draw(w: number, l: number) {
     this.ctx.beginPath();
     this.length = l;
@@ -271,8 +302,9 @@ export class hexagon implements Shape{
   width: number = 0;
   x: number = 0; 
   y: number = 0;
-  color: string = "#FFFFFF";
   id: number = 0;
+  shapeType: string = "hexagon";
+  color: string = "#FFFFFF";
   draw(w: number = 0, l: number) {
     this.ctx.beginPath();
     this.ctx.fillStyle = this.color;
@@ -310,25 +342,114 @@ export class comment implements Shape{
   width: number = 0;
   x: number = 0; 
   y: number = 0;
-  color: string = "white";
   id: number = 0;
-  draw(w: number, l: number) {};
-  setColor(color: string){};
-  resize(w: number, l: number){};
-  move(x: number, y: number){};
+  shapeType: string = "comment";
+  color: string = "#FFFFFF";
+  draw(w: number, l: number) {
+    var radius = 20;
+    this.length = l;
+    this.width = w;
+    this.ctx.fillStyle = this.color;
+    var r = this.x + w;
+    var b = this.y + l;
+    this.ctx.beginPath();
+    this.ctx.moveTo(this.x + radius, this.y);
+    this.ctx.lineTo(this.x + radius/2, this.y - 10);
+    this.ctx.lineTo(this.x + radius * 2, this.y);
+    this.ctx.lineTo(r - radius, this.y);
+    this.ctx.quadraticCurveTo(r, this.y, r, this.y + radius);
+    this.ctx.lineTo(r, this.y + l - radius);
+    this.ctx.quadraticCurveTo(r, b, r-radius, b);
+    this.ctx.lineTo(this.x + radius, b);
+    this.ctx.quadraticCurveTo(this.x, b, this.x, b - radius);
+    this.ctx.lineTo(this.x, this.y + radius);
+    this.ctx.quadraticCurveTo(this.x, this.y, this.x + radius, this.y);
+    this.ctx.stroke();
+  };
+  setColor(color: string) {
+    this.clear()
+    this.color = color;
+    this.draw(this.width, this.length);
+  };
+  resize(w: number, l: number) {
+    this.length = l;
+    this.width = w;
+    this.clear();
+    this.draw(this.width, this.length);
+  };
+  move(x: number, y: number) {
+    this.x = x;
+    this.y = y;
+    this.clear();
+    this.draw(this.width, this.length);
+  };
   clear(){};
 }
 
 export class heart implements Shape{
-  length: number;
-  width: number;
-  x: number; 
-  y: number;
-  color: string;
-  id: number;
-  draw(w: number, l: number){};
-  setColor(color: string){};
-  resize(w: number, l: number){};
-  move(x: number, y: number){};
+  constructor(private ctx: CanvasRenderingContext2D) {}
+  length: number = 0;
+  width: number = 0;
+  x: number = 0; 
+  y: number = 0;
+  id: number = 0;
+  shapeType: string = "heart";
+  color: string = "#FFFFFF";
+  draw(w: number, l: number) {
+    this.length = l;
+    this.width = w;
+    this.ctx.fillStyle = this.color;
+    this.ctx.beginPath();
+    var topCurveHeight = this.length * 0.3;
+    this.ctx.moveTo(this.x, this.y + topCurveHeight);
+    // top left curve
+    this.ctx.bezierCurveTo(
+      this.x, this.y, 
+      this.x - this.width / 2, this.y, 
+      this.x - this.width / 2, this.y + topCurveHeight,
+    );
+  
+    // bottom left curve
+    this.ctx.bezierCurveTo(
+      this.x - this.width / 2, this.y + (this.length + topCurveHeight) / 2, 
+      this.x, this.y + (this.length + topCurveHeight) / 2, 
+      this.x, this.y + this.length
+    );
+  
+    // bottom right curve
+    this.ctx.bezierCurveTo(
+      this.x, this.y + (this.length + topCurveHeight) / 2, 
+      this.x + this.width / 2, this.y + (this.length + topCurveHeight) / 2, 
+      this.x + this.width / 2, this.y + topCurveHeight
+    );
+  
+    // top right curve
+    this.ctx.bezierCurveTo(
+      this.x + this.width / 2, this.y, 
+      this.x, this.y, 
+      this.x, this.y + topCurveHeight
+    );
+  
+    this.ctx.closePath();
+    this.ctx.fill();
+    this.ctx.stroke();
+  };
+  setColor(color: string) {
+    this.clear();
+    this.color = color;
+    this.draw(this.width, this.length);
+  };
+  resize(w: number, l: number) {
+    this.clear();
+    this.length = l;
+    this.width = w;
+    this.draw(this.width, this.length);
+  };
+  move(x: number, y: number) {
+    this.x = x;
+    this.y = y;
+    this.clear();
+    this.draw(this.width, this.length);
+  };
   clear(){};
 }
