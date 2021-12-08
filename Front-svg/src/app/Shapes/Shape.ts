@@ -1,8 +1,4 @@
 export class Shape {
-    width: number = 0;
-    length: number = 0;
-    x: number = 0; 
-    y: number = 0;
     color: string = "";
     id: number = 0;
     startDraw(event: MouseEvent) {};

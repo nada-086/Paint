@@ -40,14 +40,19 @@ export class AppComponent {
   color: string = "#000000";
 
 
+
   counter = 0;
 
   indx = -1;
   drawButton(shape: string) {
     const factory = new shapeFactory(this.renderer, this.svg);
     this.Shape = factory.getShape(shape);
+    this.Shapes.push(this.Shape);
     this.isDrawing = true;
     this.selectShape = "rect"
+    console.log(this.Shapes);
+
+
   }
 
   ngAfterViewInit() {
@@ -65,7 +70,7 @@ export class AppComponent {
   select(event: MouseEvent) {
     var x = event.offsetX;
     var y = event.offsetY;
-    var id = 0;
+    var id = -1;
     for (var i = 0; i < this.Shapes.length; i++){
       if (this.Shapes[i].select(x, y) == true) {
         id = this.Shapes[i].id;
@@ -191,11 +196,11 @@ export class AppComponent {
       this.isDrawing = false;
       this.isDown = false;
       var rectangle = new rectangle(this.renderer, this.svg);
-      rectangle.x = this.Shape.x;
-      rectangle.y = this.Shape.y;
-      rectangle.id = this.Shape.id;
-      rectangle.width = this.Shape.width;
-      rectangle.length = this.Shape.length;
+      // rectangle.x = this.Shape.x;
+      // rectangle.y = this.Shape.y;
+      // rectangle.id = this.Shape.id;
+      // rectangle.width = this.Shape.width;
+      // rectangle.length = this.Shape.length;
       console.log(this.Shape);
       // this.arr.push(this.Shape);
       // console.log(this.arr);

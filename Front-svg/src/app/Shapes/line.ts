@@ -4,7 +4,6 @@ import { Shape } from "./Shape";
 export class line implements Shape{
     constructor(private renderer: Renderer2, private svg: any) { };
     private newRect: any;
-    width: number = 0;
     length: number = 0;
     x: number = 0; 
     y: number = 0;
@@ -35,7 +34,7 @@ export class line implements Shape{
     remove(array: Shape[] = []) { };
     select(x: number, y: number): boolean { 
         var equation = Math.sqrt(Math.pow(this.x - x, 2) + Math.pow(this.y - y, 2));
-        if (equation <= this.length) {
+        if (equation <= 1) {
             return true;
         }
         return false

@@ -5,8 +5,8 @@ import { line } from './Shapes/line';
 import { rectangle } from './Shapes/rectangle';
 import { triangle } from './Shapes/triangle';
 export class shapeFactory {
-    constructor(private renderer: Renderer2, private svg: any) {}
-    getShape(shapeType: string){
+    constructor(private renderer: Renderer2, private svg: any) { };
+    getShape(shapeType: string) {
         if (shapeType == null) {
             return null;
         }

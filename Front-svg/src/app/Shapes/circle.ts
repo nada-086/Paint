@@ -4,8 +4,7 @@ import { Shape } from "./Shape";
 export class circle implements Shape{
     constructor(private renderer: Renderer2, private svg: any) { };
     private newRect: any;
-    width: number = 0; // radius
-    length: number = 0;
+    radius: number = 0; // radius
     x: number = 0; 
     y: number = 0;
     color: string = "";
@@ -22,8 +21,8 @@ export class circle implements Shape{
         var x = event.offsetX - this.x;
         var y = event.offsetY - this.y;
         if(x < 0 || y < 0) return;
-        this.width = Math.trunc(Math.hypot(x, y));
-        this.newRect.setAttribute("r", this.width.toString());
+        this.radius = Math.trunc(Math.hypot(x, y));
+        this.newRect.setAttribute("r", this.radius.toString());
     };
     setColor(){};
     resize(event: MouseEvent) { };
@@ -32,7 +31,7 @@ export class circle implements Shape{
     remove(array: Shape[] = []) { };
     select(x: number, y: number): boolean { 
         var equation = Math.pow(this.x - x, 2) + Math.pow(this.y - y, 2);
-        if (equation < Math.pow(this.width, 2)) {
+        if (equation < Math.pow(this.radius, 2)) {
             return true;
         }
         return false

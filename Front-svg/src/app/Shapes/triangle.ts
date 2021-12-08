@@ -5,33 +5,28 @@ export class triangle implements Shape{
     constructor(private renderer: Renderer2, private svg: any) { };
     private newRect: any;
     counter: number = 0;
-    width: number = 0; // base
-    length: number = 0; // height
-    x: number = 0; 
-    y: number = 0;
     color: string = "";
     id: number = 0;
     points: any = [[], [], []];
     startDraw(event: MouseEvent) {
-        this.x = event.offsetX;
-        this.y = event.offsetY;
+        this.points.push([event.offsetX, event.offsetY]);
         if(this.counter === 0){
             this.newRect = this.renderer.createElement('polygon', 'svg');
             this.renderer.appendChild(this.svg.nativeElement, this.newRect);
-            var point = this.x.toString() + "," + this.y.toString() + " ";
+            var point = this.points[0][0].toString() + "," + this.points[0][1].toString() + " ";
             this.newRect.setAttribute("points", point);
             this.newRect.setAttribute("stroke", "black");
             this.counter++;
             return;
         }
         point = this.newRect.getAttribute("points");
-        point = this.adjustPoints(point, this.x, this.y);
+        point = this.adjustPoints(point, this.points[0][0], this.points[0][1]);
         this.newRect.setAttribute("points", point);
     
         this.counter++;
     };
     draw(event: MouseEvent) {
-        this.points[0].push(this.x, this.y);
+        this.points[0].push(this.points[0][0], this.points[0][1]);
         var x = event.offsetX;
         var y = event.offsetY;
         var point = this.newRect.getAttribute("points");
