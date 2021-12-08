@@ -2,9 +2,9 @@ import { Renderer2 } from "@angular/core";
 import { Shape } from "./Shape";
 
 export class rectangle implements Shape{
-    [x: string]: any;
     constructor(private renderer: Renderer2, private svg: any) {};
     private newRect: any;
+    type: string = "rectangle";
     length: number = 0;
     width: number = 0;
     x: number = 0; 

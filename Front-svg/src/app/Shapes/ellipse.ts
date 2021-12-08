@@ -4,6 +4,7 @@ import { Shape } from "./Shape";
 export class ellipse implements Shape{
     constructor(private renderer: Renderer2, private svg: any) { };
     private newRect: any;
+    type: string = "ellipse";
     rx: number = 0; // rx
     ry: number = 0; // ry
     x: number = 0; 

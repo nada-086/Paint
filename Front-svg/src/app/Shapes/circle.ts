@@ -4,6 +4,7 @@ import { Shape } from "./Shape";
 export class circle implements Shape{
     constructor(private renderer: Renderer2, private svg: any) { };
     private newRect: any;
+    type: string = "circle";
     radius: number = 0; // radius
     x: number = 0; 
     y: number = 0;

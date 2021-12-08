@@ -1,5 +1,6 @@
 export class Shape {
     color: string = "";
+    type: string = "";
     id: number = 0;
     startDraw(event: MouseEvent) {};
     draw(event: MouseEvent){};

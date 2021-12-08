@@ -4,6 +4,7 @@ import { Shape } from "./Shape";
 export class triangle implements Shape{
     constructor(private renderer: Renderer2, private svg: any) { };
     private newRect: any;
+    type: string = "triangle";
     counter: number = 0;
     color: string = "";
     id: number = 0;
