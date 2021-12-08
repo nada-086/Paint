@@ -1,0 +1,84 @@
+:root{
+    --item-background: black;
+}
+
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    margin: 0px;
+    padding: 0px;
+    background-color: black;
+}
+
+.container{
+    display: grid;
+    margin: 0px;
+    padding: 0px;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(12, 1fr);
+    width: 100vmax;
+}
+
+header{
+    background-color: rgb(191,100,56);
+    grid-column: 1 / 13;
+    grid-row: 1 / 2;
+    padding: 10px;
+    font-size: 25px;
+}
+
+.operations{
+    background-color: var(--item-background, black);
+    grid-column: 1 / 13;
+    grid-row: 2 / 3;
+}
+
+.tools{
+    background-color: var(--item-background, black);
+    height: fit-content;
+    grid-column: 1 /13;
+    grid-row: 3 / 4;
+}
+
+aside{
+    background-color: var(--item-background, black);
+    grid-column: 1 / 2;
+    grid-row: 4 / 12;
+    padding: 5px;
+    display: grid;
+    justify-content: center;
+}
+
+.board{
+    background-color: white;
+    grid-column: 2 / 13;
+    grid-row: 4 / 12;
+}
+
+button{
+    font-size: 16px;  
+    border: none;
+    outline: none;
+    color: white;
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0;
+    display: inline-block;
+}
+
+footer{
+    grid-column: 1 / 13;
+    grid-row: 12 / 13;
+}
+
+.main-button{
+    padding: 14px 16px;
+}
+
+.main-button:hover{
+    background-color: red;
+}
+
+.greater{
+    font-size: 40px;
+}

@@ -80,7 +80,7 @@ export class AppComponent {
   }
 
   move() {
-    // this.operation.move(id, x, y);
+    this.operation.move(this.shapes[1], 200, 200);
   }
 
   remove() {
