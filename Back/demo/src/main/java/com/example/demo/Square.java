@@ -1,14 +1,14 @@
 package com.example.demo;
 
-public class Square implements Shape {
+public class Square implements IShape {
     String type = "Square";
-    double length;
-    double width;
-    double posx;
-    double posy;
+    int length;
+    int width;
+    int posx;
+    int posy;
     int ID;
     String color;
-    public Square(double width, double x, double y, int ID, String color){
+    public Square(int width, int x, int y, int ID, String color){
         this.length = width;
         this.width = width;
         this.posx = x;
@@ -16,38 +16,60 @@ public class Square implements Shape {
         this.ID = ID;
         this.color=color;
     }
+
+    public Square() {
+        super();
+    }
+
     @Override
     public String getType() {
         return this.type;
     }
+
     @Override
-    public double getWidth() {
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    @Override
+    public int getWidth() {
         return width;
     }
 
     @Override
-    public void setLength(double l) {
+    public int getLength() {
+        return 0;
+    }
+
+    @Override
+    public void setLength(int l) {
 
     }
 
     @Override
-    public double getX() {
+    public int getX() {
         return posx;
     }
     @Override
-    public double getY() {
+    public int getY() {
         return posy;
     }
     @Override
     public int getID() {
         return ID;
     }
+
+    @Override
+    public void setID(int id) {
+        this.ID = id;
+    }
+
     @Override
     public String getColor() {
         return color;
     }
     @Override
-    public void setWidth(double width) {
+    public void setWidth(int width) {
         this.width = width;
     }
     @Override
@@ -55,11 +77,11 @@ public class Square implements Shape {
         this.color = color;
     }
     @Override
-    public void setX(double x) {
+    public void setX(int x) {
         this.posx = x;
     }
     @Override
-    public void setY(double y) {
+    public void setY(int y) {
         this.posy = y;
     }
 }

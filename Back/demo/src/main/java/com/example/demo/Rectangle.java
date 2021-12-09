@@ -1,18 +1,16 @@
 package com.example.demo;
 
 
-import com.example.demo.Shape;
-
-public class Rectangle implements Shape {
+public class Rectangle implements IShape {
     String type = "Rectangle";
-    double width;
-    double length;
-    double height;
+    int width;
+    int length;
+    int height;
     String color;
-    double posx;
-    double posy;
+    int posx;
+    int posy;
     int ID;
-    public Rectangle(double width, double length, double posx, double posy, int ID, String color) {
+    public Rectangle(int width, int length, int posx, int posy, int ID, String color) {
         this.length = length;
         this.width = width;
         this.posx = posx;
@@ -22,23 +20,27 @@ public class Rectangle implements Shape {
 
     }
 
+    public Rectangle() {
+        super();
+    }
+
     @Override
-    public void setWidth(double w) {
+    public void setWidth(int w) {
         this.width = w;
     }
 
     @Override
-    public double getWidth() {
+    public int getWidth() {
         return width;
     }
 
 
-    public void setLength(double l) {
+    public void setLength(int l) {
         this.length = l;
     }
 
 
-    public double getLength() {
+    public int getLength() {
         return length;
     }
 
@@ -48,12 +50,17 @@ public class Rectangle implements Shape {
     }
 
     @Override
-    public void setX(double x) {
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    @Override
+    public void setX(int x) {
         this.posx = x;
     }
 
     @Override
-    public void setY(double y) {
+    public void setY(int y) {
         this.posy = y;
     }
 
@@ -72,12 +79,17 @@ public class Rectangle implements Shape {
     }
 
     @Override
-    public double getX() {
+    public void setID(int id) {
+        this.ID = id;
+    }
+
+    @Override
+    public int getX() {
         return posx;
     }
 
     @Override
-    public double getY() {
+    public int getY() {
         return posy;
     }
 

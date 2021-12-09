@@ -1,17 +1,15 @@
 package com.example.demo;
 
-import com.example.demo.Shape;
-
-public class Line implements Shape {
+public class Line implements IShape {
     String type = "Line";
-    double posx;
-    double posy;
-    //double x2;
-    //double y2;
+    int posx;
+    int posy;
+    //int x2;
+    //int y2;
     int ID;
     String color;
 
-    public Line(double posx, double posy, int ID, String color) {
+    public Line(int posx, int posy, int ID, String color) {
        // this.x1 = length;
        // this.y1 = width;
         this.posx = posx;
@@ -20,28 +18,42 @@ public class Line implements Shape {
         this.color = color;
     }
 
+    public Line() {
+        super();
+    }
+
     public String getType() {
         return type;
     }
-   /* public double getLength() {
+
+    @Override
+    public void setType(String type) {
+        this.type = type;
+    }
+   /* public int getLength() {
         return x1;
     } */
 
-    public double getWidth() {
+    public int getWidth() {
         return posx;
     }
 
     @Override
-    public void setLength(double l) {
+    public int getLength() {
+        return 0;
+    }
+
+    @Override
+    public void setLength(int l) {
 
     }
 
     @Override
-    public double getX() {
+    public int getX() {
         return posx;
     }
     @Override
-    public double getY() {
+    public int getY() {
         return posy;
     }
     @Override
@@ -53,12 +65,13 @@ public class Line implements Shape {
     public int getID() {
         return ID;
     }
-/*
-    public void setLength(double length) {
-        this.x1 = length;
+
+    @Override
+    public void setID(int id) {
+        this.ID = id;
     }
-*/
-    public void setWidth(double width) {
+
+    public void setWidth(int width) {
         this.posx = width;
     }
 
@@ -68,11 +81,11 @@ public class Line implements Shape {
     }
 
     @Override
-    public void setX(double x) {
+    public void setX(int x) {
         this.posx = x;
     }
     @Override
-    public void setY(double y) {
+    public void setY(int y) {
         this.posy = y;
     }
 

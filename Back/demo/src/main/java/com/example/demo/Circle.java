@@ -1,13 +1,13 @@
 package com.example.demo;
 
-public class Circle implements Shape {
-    String type = "Cricle";
-    double radius;
-    double posx;
-    double posy;
+public class Circle implements IShape {
+    String type = "Circle";
+    int radius;
+    int posx;
+    int posy;
     int ID;
     String color;
-    public Circle(double radius, double posx, double posy, int ID, String color) {
+    public Circle(int radius, int posx, int posy, int ID, String color) {
         this.radius = radius;
         this.posx = posx;
         this.posy = posy;
@@ -15,19 +15,27 @@ public class Circle implements Shape {
         this.color = color;
     }
 
+    public Circle() {
+        super();
+    }
 
     @Override
-    public void setWidth(double r) {
+    public void setWidth(int r) {
         this.radius = r;
     }
 
     @Override
-    public double getWidth() {
+    public int getWidth() {
         return radius;
     }
 
     @Override
-    public void setLength(double l) {
+    public int getLength() {
+        return 0;
+    }
+
+    @Override
+    public void setLength(int l) {
 
     }
 
@@ -37,12 +45,17 @@ public class Circle implements Shape {
     }
 
     @Override
-    public void setX(double x) {
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    @Override
+    public void setX(int x) {
         this.posx = x;
     }
 
     @Override
-    public void setY(double y) {
+    public void setY(int y) {
         this.posy = y;
     }
 
@@ -62,12 +75,17 @@ public class Circle implements Shape {
     }
 
     @Override
-    public double getX() {
+    public void setID(int id) {
+        this.ID = id;
+    }
+
+    @Override
+    public int getX() {
         return posx;
     }
 
     @Override
-    public double getY() {
+    public int getY() {
         return posy;
     }
 }
