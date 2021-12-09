@@ -49,32 +49,53 @@ import javax.xml.transform.dom.DOMSource; import javax.xml.transform.stream.Stre
 public class Controller {
     @GetMapping("/shape")
     @ResponseBody
-    public ArrayList getInstances(@RequestParam(name = "type") String type, @RequestParam(name = "length") int length,
-                                  @RequestParam(name = "width") int width, @RequestParam(name = "x") int posx,
-                                  @RequestParam(name = "y") int posy, @RequestParam(name = "c") String color,
-                                  @RequestParam(name = "id") int ID)
-    {
-        System.out.println(" Width is: "+ width +", Length is "+ length + ", Type is "+ type);
+    public ArrayList getInstances(@RequestParam(name = "parameters") String parameters)
+  {
+    String[] s = parameters.split(",");
+    String type = s[0];
+   
+   // System.out.println(" Width is: "+ width +", Length is "+ length + ", Type is "+ type);
 
-        return ShapeFactory.createShape(type, length, width, posx, posy, ID, color);
+    return ShapeFactory.createShape(type, s);
 
-    }
+  }
+    
+    
+//     public ArrayList getInstances(@RequestParam(name = "type") String type, @RequestParam(name = "length") int length,
+//                                   @RequestParam(name = "width") int width, @RequestParam(name = "x") int posx,
+//                                   @RequestParam(name = "y") int posy, @RequestParam(name = "c") String color,
+//                                   @RequestParam(name = "id") int ID)
+//     {
+//         System.out.println(" Width is: "+ width +", Length is "+ length + ", Type is "+ type);
+
+//         return ShapeFactory.createShape(type, length, width, posx, posy, ID, color);
+
+//     }
     @GetMapping("/color")
     @ResponseBody
-    public ArrayList<IShape> changeColor(@RequestParam(name = "id") int ID, @RequestParam(name = "color") String color) {
+    public ArrayList<IShape> changeColor(@RequestParam(name = "changeColor") String ch_color) {
+        String[] c = ch_color.split(",");
+        int ID = Integer.parseInt(c[0]);
+        String color = c[1];
 
         return Storage.changeColor(ID, color);
     }
     @GetMapping("/resize")
     @ResponseBody
-    public ArrayList<IShape> resize(@RequestParam(name = "id") int ID, @RequestParam(name = "length") int length,
-                                    @RequestParam(name = "width") int width) {
+    public ArrayList<IShape> resize(@RequestParam(name = "resize") String resize) {
+        String[] res = resize.split(",");
+        int ID = Integer.parseInt(res[0]);
+        int length = Integer.parseInt(res[1]);
+        int width = Integer.parseInt(res[2]);
         return Storage.resize(ID, length, width);
     }
     @GetMapping("/move")
     @ResponseBody
-    public ArrayList<IShape> move(@RequestParam(name = "id") int ID, @RequestParam(name = "x") int x,
-                                  @RequestParam(name = "y") int y) {
+    public ArrayList<IShape> move(@RequestParam(name = "move")String move ) {
+        String[] m = move.split(",");
+        int ID = Integer.parseInt(m[0]);
+        int x = Integer.parseInt(m[1]);
+        int y = Integer.parseInt(m[2]);
         return Storage.move(ID, x, y);
     }
     @GetMapping("/delete")
@@ -85,7 +106,10 @@ public class Controller {
     }
     @GetMapping("/copy")
     @ResponseBody
-    public ArrayList<IShape> copy(@RequestParam(name = "id1") int id1, @RequestParam(name = "id2") int id2) {
+    public ArrayList<IShape> copy(@RequestParam(name = "copy") String copy) {
+        String[] co = copy.split(",");
+        int id1 = Integer.parseInt(co[0]);
+        int id2 = Integer.parseInt(co[1]);
         return Storage.copy(id1, id2);
     }
 
