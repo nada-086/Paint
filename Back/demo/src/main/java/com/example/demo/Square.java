@@ -1,24 +1,41 @@
 package com.example.demo;
 
 public class Square implements IShape {
-    String type = "Square";
+    String type = "square";
+    String parameters;
     int length;
     int width;
     int posx;
     int posy;
     int ID;
     String color;
-    public Square(int width, int x, int y, int ID, String color){
-        this.length = width;
-        this.width = width;
+    public Square(String s, int x, int y, int width, int ID, String color){
+        this.parameters = s;
         this.posx = x;
         this.posy = y;
+        this.width = width;
         this.ID = ID;
         this.color=color;
     }
 
-    public Square() {
+   /* public Square() {
         super();
+    }
+*/
+   @Override
+   public String getAttributes() {
+       return parameters;
+   }
+
+    @Override
+    public void setAttributes(String s) {
+        this.parameters = s;
+        String[] temp = s.split(",");
+        this.posx = Integer.parseInt(temp[1]);
+        this.posy = Integer.parseInt(temp[2]);
+        this.width = Integer.parseInt(temp[3]);
+        setID(Integer.parseInt(temp[4]));
+       setColor(temp[5]);
     }
 
     @Override
@@ -31,29 +48,7 @@ public class Square implements IShape {
         this.type = type;
     }
 
-    @Override
-    public int getWidth() {
-        return width;
-    }
 
-    @Override
-    public int getLength() {
-        return 0;
-    }
-
-    @Override
-    public void setLength(int l) {
-
-    }
-
-    @Override
-    public int getX() {
-        return posx;
-    }
-    @Override
-    public int getY() {
-        return posy;
-    }
     @Override
     public int getID() {
         return ID;
@@ -68,20 +63,12 @@ public class Square implements IShape {
     public String getColor() {
         return color;
     }
-    @Override
-    public void setWidth(int width) {
-        this.width = width;
-    }
+
+
+
     @Override
     public void setColor(String color) {
         this.color = color;
     }
-    @Override
-    public void setX(int x) {
-        this.posx = x;
-    }
-    @Override
-    public void setY(int y) {
-        this.posy = y;
-    }
+
 }

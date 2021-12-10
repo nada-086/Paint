@@ -1,44 +1,42 @@
 package com.example.demo;
 
 public class Circle implements IShape {
-    String type = "Circle";
+    String type = "circle";
+    String parameters;
     int radius;
     int posx;
     int posy;
     int ID;
     String color;
-    public Circle(int radius, int posx, int posy, int ID, String color) {
-        this.radius = radius;
+    public Circle(String s, int posx, int posy, int radius, int ID, String color) {
+        this.parameters = s;
         this.posx = posx;
         this.posy = posy;
+        this.radius = radius;
         this.ID = ID;
         this.color = color;
     }
-
+/*
     public Circle() {
         super();
-    }
+    }*/
 
     @Override
-    public void setWidth(int r) {
-        this.radius = r;
+    public String getAttributes() {
+        return parameters;
     }
 
-    @Override
-    public int getWidth() {
-        return radius;
-    }
-
-    @Override
-    public int getLength() {
-        return 0;
-    }
-
-    @Override
-    public void setLength(int l) {
-
-    }
-
+   @Override
+   public void setAttributes(String attributes) {
+        String[] temp = attributes.split(",");
+        this.parameters = attributes;
+        this.radius = Integer.parseInt(temp[1]);
+        this.posx = Integer.parseInt(temp[2]);
+        this.posy = Integer.parseInt(temp[3]);
+        this.setID(Integer.parseInt(temp[4]));
+        String color = temp[5];
+        this.setColor(temp[5]);
+   }
     @Override
     public String getType() {
         return type;
@@ -47,16 +45,6 @@ public class Circle implements IShape {
     @Override
     public void setType(String type) {
         this.type = type;
-    }
-
-    @Override
-    public void setX(int x) {
-        this.posx = x;
-    }
-
-    @Override
-    public void setY(int y) {
-        this.posy = y;
     }
 
     @Override
@@ -79,13 +67,4 @@ public class Circle implements IShape {
         this.ID = id;
     }
 
-    @Override
-    public int getX() {
-        return posx;
-    }
-
-    @Override
-    public int getY() {
-        return posy;
-    }
 }

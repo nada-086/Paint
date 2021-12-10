@@ -1,47 +1,11 @@
 package com.example.demo.controller;
 import com.example.demo.IShape;
 import com.example.demo.ShapeFactory;
-import com.example.demo.Storage;
-
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import org.json.JSONArray;
+import com.example.demo.operations.Operations;
 import org.springframework.web.bind.annotation.*;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.*;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-import java.awt.*;
-import java.beans.XMLEncoder;
-import java.beans.XMLDecoder;
 import java.io.*;
-import java.nio.ByteBuffer;
-import java.nio.CharBuffer;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-////////
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.FactoryConfigurationError;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.dom.DOMSource; import javax.xml.transform.stream.StreamResult;
+import java.util.*;
+
 @RestController
 @CrossOrigin
 @RequestMapping("/paintapp")
@@ -49,68 +13,92 @@ import javax.xml.transform.dom.DOMSource; import javax.xml.transform.stream.Stre
 public class Controller {
     @GetMapping("/shape")
     @ResponseBody
-    public ArrayList getInstances(@RequestParam(name = "type") String type, @RequestParam(name = "length") int length,
-                                  @RequestParam(name = "width") int width, @RequestParam(name = "x") int posx,
-                                  @RequestParam(name = "y") int posy, @RequestParam(name = "c") String color,
-                                  @RequestParam(name = "id") int ID)
-    {
-        System.out.println(" Width is: "+ width +", Length is "+ length + ", Type is "+ type);
+    public ArrayList getInstances(@RequestParam(name = "parameters") String paramters) {
 
-        return ShapeFactory.createShape(type, length, width, posx, posy, ID, color);
-
+        String[] s = paramters.split(",");
+       String type = s[0];
+        return ShapeFactory.createShape(type, s, paramters);
     }
+
     @GetMapping("/color")
     @ResponseBody
-    public ArrayList<IShape> changeColor(@RequestParam(name = "id") int ID, @RequestParam(name = "color") String color) {
-
-        return Storage.changeColor(ID, color);
+    public ArrayList<IShape> changeColor(@RequestParam(name = "id") int ID,
+                                         @RequestParam(name = "parameters") String newParameters) {
+        return Operations.updateShapeStatus(ID, newParameters);
     }
+
     @GetMapping("/resize")
     @ResponseBody
-    public ArrayList<IShape> resize(@RequestParam(name = "id") int ID, @RequestParam(name = "length") int length,
-                                    @RequestParam(name = "width") int width) {
-        return Storage.resize(ID, length, width);
+    public ArrayList<IShape> resize(@RequestParam(name = "id") int ID,
+                                    @RequestParam(name = "parameters") String newParameters) {
+        return Operations.updateShapeStatus(ID, newParameters);
     }
+
     @GetMapping("/move")
     @ResponseBody
-    public ArrayList<IShape> move(@RequestParam(name = "id") int ID, @RequestParam(name = "x") int x,
-                                  @RequestParam(name = "y") int y) {
-        return Storage.move(ID, x, y);
+    public ArrayList<IShape> move(@RequestParam(name = "id") int ID,
+                                  @RequestParam(name = "parameters") String newParameters) {
+        return Operations.updateShapeStatus(ID, newParameters);
     }
+
     @GetMapping("/delete")
     @ResponseBody
     public ArrayList<IShape> delete(@RequestParam(name = "id") int ID) {
-        return Storage.delete(ID);
-
+        return Operations.delete(ID);
     }
+
     @GetMapping("/copy")
     @ResponseBody
     public ArrayList<IShape> copy(@RequestParam(name = "id1") int id1, @RequestParam(name = "id2") int id2) {
-        return Storage.copy(id1, id2);
+        return Operations.copy(id1, id2);
     }
 
-
-    @GetMapping("/loadXML")
+    @GetMapping("/undo")
     @ResponseBody
-    public ArrayList<IShape> loadXML() {
-        try{
-            FileInputStream fis = new FileInputStream("./paint.xml");
-            XMLDecoder decoder = new XMLDecoder(fis);
-            ShapeFactory.shapes = (ArrayList<IShape>) decoder.readObject();
-            decoder.close();
-            fis.close();
-            System.out.println(ShapeFactory.shapes);
-
+    public void undo(@RequestParam(name = "undo") String undo) {
+        String[] temp = undo.split(",");
+        String operation = temp[0];
+        int ID = Integer.parseInt(temp[1]);
+        int ind1 = undo.indexOf(",");
+        int ind2 = undo.indexOf(",", ind1 + 1);
+        String oldParameters= undo.substring(ind2+1);
+        System.out.println("undoOLD"+ oldParameters);
+        if(operation == "draw" || operation == "copy") {
+            Operations.delete(ID);
         }
-        catch (IOException ex){
-            ex.printStackTrace();
+        else if(operation == "delete") {
+            getInstances(oldParameters);
         }
-        return ShapeFactory.shapes;
+        else {
+            Operations.updateShapeStatus(ID, oldParameters);
+        }
     }
+    @GetMapping("/save")
+    @ResponseBody
+    public void save(@RequestParam(name = "path") String filePath) {
+        if(filePath.contains(".xml")) {
+            FilesController.saveXML(filePath);
+        }
+        else if(filePath.contains(".json")) {
+            FilesController.saveJSON(filePath);
+        }
+    }
+
+    @GetMapping("/load")
+    @ResponseBody
+    public void load(@RequestParam(name = "path") String filePath) throws IOException {
+        if(filePath.contains(".xml")) {
+            FilesController.loadXML(filePath);
+        }
+        else if(filePath.contains(".json")) {
+            FilesController.loadJSON(filePath);
+        }
+    }
+
     @GetMapping("/new")
     @ResponseBody
     public void newFile() {
-
+        ShapeFactory.shapes.clear();
     }
 }
 

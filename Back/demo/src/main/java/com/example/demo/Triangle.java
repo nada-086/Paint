@@ -1,45 +1,49 @@
 package com.example.demo;
 
 public class Triangle implements IShape {
-    String type = "Triangle";
-    int width;
-    int length;
-    int height;
+    String type = "triangle";
+    String parameters;
     String color;
-    int posx;
-    int posy;
+    int posx1;
+    int posy1;
+    int posx2;
+    int posy2;
+    int posx3;
+    int posy3;
     int ID;
-    public Triangle(int width, int length, int posx, int posy, int ID, String color) {
-        this.length = length;
-        this.width = width;
-        this.posx = posx;
-        this.posy = posy;
+    public Triangle(String s, int posx1, int posy1, int posx2, int posy2, int posx3, int posy3,int ID, String color) {
+        this.parameters = s;
+        this.posx1 = posx1;
+        this.posy1= posy1;
+        this.posx2 = posx2;
+        this.posy2= posy2;
+        this.posx3 = posx3;
+        this.posy3= posy3;
         this.ID = ID;
         this.color = color;
     }
 
-    public Triangle() {
+    /*public Triangle() {
         super();
     }
+*/
+    @Override
+    public String getAttributes() {
+        return parameters;
+    }
 
     @Override
-    public void setWidth(int w) {
-        this.width = w;
-    }
-
-    @Override
-    public int getWidth() {
-        return width;
-    }
-
-
-    public void setLength(int l) {
-        this.length = l;
-    }
-
-
-    public int getLength() {
-        return length;
+    public void setAttributes(String s) {
+        this.parameters = s;
+        String[] temp = s.split(",");
+        this.posx1 = Integer.parseInt(temp[1]);
+        this.posy1 = Integer.parseInt(temp[2]);
+        this.posx2 = Integer.parseInt(temp[3]);
+        this.posy2 = Integer.parseInt(temp[4]);
+        this.posx3 = Integer.parseInt(temp[5]);
+        this.posy3 = Integer.parseInt(temp[6]);
+        setID(Integer.parseInt(temp[7]));
+        setColor(temp[8]);
     }
 
     @Override
@@ -50,16 +54,6 @@ public class Triangle implements IShape {
     @Override
     public void setType(String type) {
         this.type = type;
-    }
-
-    @Override
-    public void setX(int x) {
-        this.posx = x;
-    }
-
-    @Override
-    public void setY(int y) {
-        this.posy = y;
     }
 
     @Override
@@ -81,13 +75,4 @@ public class Triangle implements IShape {
         this.ID = id;
     }
 
-    @Override
-    public int getX() {
-        return posx;
-    }
-
-    @Override
-    public int getY() {
-        return posy;
-    }
 }

@@ -1,27 +1,45 @@
 package com.example.demo;
 
 public class Line implements IShape {
-    String type = "Line";
-    int posx;
-    int posy;
-    //int x2;
-    //int y2;
+    String type = "line";
+    String parameters;
+    int posx1;
+    int posy1;
+    int posx2;
+    int posy2;
     int ID;
     String color;
 
-    public Line(int posx, int posy, int ID, String color) {
-       // this.x1 = length;
-       // this.y1 = width;
-        this.posx = posx;
-        this.posy = posy;
+    public Line(String s, int posx1, int posy1, int posx2, int posy2, int ID, String color) {
+        this.parameters = s;
+        this.posx1 = posx1;
+        this.posy1 = posy1;
+        this.posx2 = posx2;
+        this.posy2 = posy2;
         this.ID = ID;
         this.color = color;
     }
 
-    public Line() {
+    /*public Line() {
         super();
     }
+*/
+    @Override
+    public String getAttributes() {
+        return parameters;
+    }
 
+    @Override
+    public void setAttributes(String s) {
+        this.parameters = s;
+        String[] temp = s.split(",");
+        this.posx1 = Integer.parseInt(temp[1]);
+        this.posy1 = Integer.parseInt(temp[2]);
+        this.posx2 = Integer.parseInt(temp[3]);
+        this.posy2 = Integer.parseInt(temp[4]);
+        setID(Integer.parseInt(temp[5]));
+        setColor(temp[6]);
+    }
     public String getType() {
         return type;
     }
@@ -30,33 +48,7 @@ public class Line implements IShape {
     public void setType(String type) {
         this.type = type;
     }
-   /* public int getLength() {
-        return x1;
-    } */
 
-    public int getWidth() {
-        return posx;
-    }
-
-    @Override
-    public int getLength() {
-        return 0;
-    }
-
-    @Override
-    public void setLength(int l) {
-
-    }
-
-    @Override
-    public int getX() {
-        return posx;
-    }
-    @Override
-    public int getY() {
-        return posy;
-    }
-    @Override
     public String getColor() {
         return color;
     }
@@ -72,7 +64,7 @@ public class Line implements IShape {
     }
 
     public void setWidth(int width) {
-        this.posx = width;
+        this.posx1 = width;
     }
 
     @Override
@@ -80,13 +72,5 @@ public class Line implements IShape {
         this.color = color;
     }
 
-    @Override
-    public void setX(int x) {
-        this.posx = x;
-    }
-    @Override
-    public void setY(int y) {
-        this.posy = y;
-    }
 
 }

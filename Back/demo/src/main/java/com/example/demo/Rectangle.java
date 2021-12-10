@@ -2,46 +2,44 @@ package com.example.demo;
 
 
 public class Rectangle implements IShape {
-    String type = "Rectangle";
+    String type = "rectangle";
+    String parameters;
     int width;
     int length;
-    int height;
     String color;
     int posx;
     int posy;
     int ID;
-    public Rectangle(int width, int length, int posx, int posy, int ID, String color) {
-        this.length = length;
-        this.width = width;
+    public Rectangle(String s, int posx, int posy, int length, int width, int ID, String color) {
+        this.parameters = s;
         this.posx = posx;
         this.posy = posy;
+        this.length = length;
+        this.width = width;
         this.ID = ID;
         this.color = color;
 
     }
 
-    public Rectangle() {
+    /*public Rectangle() {
         super();
     }
+*/
+    @Override
+    public String getAttributes() {
+        return parameters;
+    }
 
     @Override
-    public void setWidth(int w) {
-        this.width = w;
-    }
-
-    @Override
-    public int getWidth() {
-        return width;
-    }
-
-
-    public void setLength(int l) {
-        this.length = l;
-    }
-
-
-    public int getLength() {
-        return length;
+    public void setAttributes(String s) {
+        this.parameters = s;
+        String[] temp = s.split(",");
+        this.posx = Integer.parseInt(temp[1]);
+        this.posy = Integer.parseInt(temp[2]);
+        this.length = Integer.parseInt(temp[3]);
+        this.width = Integer.parseInt(temp[4]);
+        setID(Integer.parseInt(temp[5]));
+        setColor(temp[6]);
     }
 
     @Override
@@ -52,16 +50,6 @@ public class Rectangle implements IShape {
     @Override
     public void setType(String type) {
         this.type = type;
-    }
-
-    @Override
-    public void setX(int x) {
-        this.posx = x;
-    }
-
-    @Override
-    public void setY(int y) {
-        this.posy = y;
     }
 
     @Override
@@ -83,14 +71,5 @@ public class Rectangle implements IShape {
         this.ID = id;
     }
 
-    @Override
-    public int getX() {
-        return posx;
-    }
-
-    @Override
-    public int getY() {
-        return posy;
-    }
 
 }

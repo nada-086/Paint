@@ -1,14 +1,16 @@
 package com.example.demo;
 
 public class Ellipse implements IShape {
-    String type = "Ellipse";
+    String type = "ellipse";
+    String parameters;
     int r1;
     int r2;
     int posx;
     int posy;
     int ID;
     String color;
-    public Ellipse(int r1, int r2, int posx, int posy, int id, String color) {
+    public Ellipse(String s, int r1, int r2, int posx, int posy, int id, String color) {
+        this.parameters = s;
         this.ID = id;
         this.posx = posx;
         this.posy = posy;
@@ -16,28 +18,25 @@ public class Ellipse implements IShape {
         this.r2 = r2;
         this.color = color;
     }
-    public Ellipse() {
+   /* public Ellipse() {
         super();
     }
-
+*/
     @Override
-    public void setWidth(int r1) {
-        this.r1 =r1;
+    public String getAttributes() {
+        return parameters;
     }
 
     @Override
-    public int getWidth() {
-        return r1;
-    }
-
-    @Override
-    public int getLength() {
-        return r2;
-    }
-
-    @Override
-    public void setLength(int r2) {
-        this.r2 = r2;
+    public void setAttributes(String s) {
+        this.parameters = s;
+        String[] temp = s.split(",");
+        this.posx = Integer.parseInt(temp[1]);
+        this.posy = Integer.parseInt(temp[2]);
+        this.r1 = Integer.parseInt(temp[3]);
+        this.r2 = Integer.parseInt(temp[4]);
+        setID(Integer.parseInt(temp[5]));
+        setColor(temp[6]);
     }
 
     @Override
@@ -48,26 +47,6 @@ public class Ellipse implements IShape {
     @Override
     public void setType(String type) {
         this.type = type;
-    }
-
-    @Override
-    public void setX(int x) {
-        this.posx = x;
-    }
-
-    @Override
-    public void setY(int y) {
-        this.posy = y;
-    }
-
-    @Override
-    public int getX() {
-        return posx;
-    }
-
-    @Override
-    public int getY() {
-        return posy;
     }
 
     @Override
