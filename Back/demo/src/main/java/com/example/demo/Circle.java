@@ -8,13 +8,15 @@ public class Circle implements IShape {
     int posy;
     int ID;
     String color;
-    public Circle(String s, int posx, int posy, int radius, int ID, String color) {
+    String outline;
+    public Circle(String s, int posx, int posy, int radius, int ID, String color, String outline) {
         this.parameters = s;
         this.posx = posx;
         this.posy = posy;
         this.radius = radius;
         this.ID = ID;
         this.color = color;
+        this.outline = outline;
     }
 /*
     public Circle() {
@@ -33,9 +35,9 @@ public class Circle implements IShape {
         this.radius = Integer.parseInt(temp[1]);
         this.posx = Integer.parseInt(temp[2]);
         this.posy = Integer.parseInt(temp[3]);
-        this.setID(Integer.parseInt(temp[4]));
-        String color = temp[5];
-        this.setColor(temp[5]);
+        setID(Integer.parseInt(temp[4]));
+        setColor(temp[5]);
+        setOutline(temp[6]);
    }
     @Override
     public String getType() {
@@ -55,6 +57,16 @@ public class Circle implements IShape {
     @Override
     public String getColor() {
         return color;
+    }
+
+    @Override
+    public void setOutline(String c) {
+        this.outline = c;
+    }
+
+    @Override
+    public String getOutline() {
+        return outline;
     }
 
     @Override

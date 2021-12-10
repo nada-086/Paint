@@ -11,6 +11,9 @@ public interface IShape {
     void setColor(String c);
     String getColor();
 
+    void setOutline(String c);
+    String getOutline();
+
     int getID();
     void setID(int id);
 }

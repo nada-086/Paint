@@ -17,6 +17,40 @@ public class Operations {
         }
         return null;
     }
+
+    public static ArrayList<IShape> delete(int ID) {
+        for(int i=0; i<ShapeFactory.shapes.size(); ++i) {
+            IShape temp = ShapeFactory.shapes.get(i);
+            if(temp.getID() == ID) {
+                ShapeFactory.shapes.remove(i);
+                return ShapeFactory.shapes;
+            }
+        }
+        return null;
+    }
+
+    public static ArrayList<IShape> copy(int id1, int id2) {
+        for (int i = 0; i < ShapeFactory.shapes.size(); ++i) {
+            IShape temp = ShapeFactory.shapes.get(i);
+            if (temp.getID() == id1) {
+                temp.setID(id2);
+                String[] s = temp.getAttributes().split(",");
+                ShapeFactory.createShape(temp.getType(), s,temp.getAttributes());
+            }
+        }
+        return null;
+    }
+
+    public static int getLastID() {
+        int id=0;
+        for(int i=0; i<ShapeFactory.shapes.size(); i++) {
+            if(ShapeFactory.shapes.get(i).getID() > id) {
+                id = ShapeFactory.shapes.get(i).getID();
+            }
+        }
+        return id;
+    }
+}
     /*
     public static ArrayList<IShape> changeColor(int ID, String updatedParameters) {
         for (int i = 0; i < ShapeFactory.shapes.size(); ++i) {
@@ -53,36 +87,3 @@ public class Operations {
         return null;
     }
     */
-    public static ArrayList<IShape> delete(int ID) {
-        for(int i=0; i<ShapeFactory.shapes.size(); ++i) {
-            IShape temp = ShapeFactory.shapes.get(i);
-            if(temp.getID() == ID) {
-                ShapeFactory.shapes.remove(i);
-                return ShapeFactory.shapes;
-            }
-        }
-        return null;
-    }
-
-    public static ArrayList<IShape> copy(int id1, int id2) {
-        for (int i = 0; i < ShapeFactory.shapes.size(); ++i) {
-            IShape temp = ShapeFactory.shapes.get(i);
-            if (temp.getID() == id1) {
-                temp.setID(id2);
-                String[] s = temp.getAttributes().split(",");
-                ShapeFactory.createShape(temp.getType(), s,temp.getAttributes());
-            }
-        }
-        return null;
-    }
-
-    public static int getLastID() {
-        int id=0;
-        for(int i=0; i<ShapeFactory.shapes.size(); i++) {
-            if(ShapeFactory.shapes.get(i).getID() > id) {
-                id = ShapeFactory.shapes.get(i).getID();
-            }
-        }
-        return id;
-    }
-}

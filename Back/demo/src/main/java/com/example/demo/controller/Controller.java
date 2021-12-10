@@ -14,7 +14,6 @@ public class Controller {
     @GetMapping("/shape")
     @ResponseBody
     public ArrayList getInstances(@RequestParam(name = "parameters") String paramters) {
-
         String[] s = paramters.split(",");
         String type = s[0];
         return ShapeFactory.createShape(type, s, paramters);

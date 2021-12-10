@@ -9,8 +9,8 @@ public class Line implements IShape {
     int posy2;
     int ID;
     String color;
-
-    public Line(String s, int posx1, int posy1, int posx2, int posy2, int ID, String color) {
+    String outline;
+    public Line(String s, int posx1, int posy1, int posx2, int posy2, int ID, String color, String outline) {
         this.parameters = s;
         this.posx1 = posx1;
         this.posy1 = posy1;
@@ -18,6 +18,7 @@ public class Line implements IShape {
         this.posy2 = posy2;
         this.ID = ID;
         this.color = color;
+        this.outline = outline;
     }
 
     /*public Line() {
@@ -39,6 +40,7 @@ public class Line implements IShape {
         this.posy2 = Integer.parseInt(temp[4]);
         setID(Integer.parseInt(temp[5]));
         setColor(temp[6]);
+        setOutline(temp[7]);
     }
     public String getType() {
         return type;
@@ -51,6 +53,16 @@ public class Line implements IShape {
 
     public String getColor() {
         return color;
+    }
+
+    @Override
+    public void setOutline(String c) {
+        this.outline = c;
+    }
+
+    @Override
+    public String getOutline() {
+        return outline;
     }
 
     @Override

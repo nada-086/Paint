@@ -9,7 +9,8 @@ public class Ellipse implements IShape {
     int posy;
     int ID;
     String color;
-    public Ellipse(String s, int r1, int r2, int posx, int posy, int id, String color) {
+    String outline;
+    public Ellipse(String s, int r1, int r2, int posx, int posy, int id, String color, String outline) {
         this.parameters = s;
         this.ID = id;
         this.posx = posx;
@@ -17,6 +18,7 @@ public class Ellipse implements IShape {
         this.r1 = r1;
         this.r2 = r2;
         this.color = color;
+        this.outline = outline;
     }
    /* public Ellipse() {
         super();
@@ -37,6 +39,7 @@ public class Ellipse implements IShape {
         this.r2 = Integer.parseInt(temp[4]);
         setID(Integer.parseInt(temp[5]));
         setColor(temp[6]);
+        setOutline(temp[7]);
     }
 
     @Override
@@ -57,6 +60,16 @@ public class Ellipse implements IShape {
     @Override
     public String getColor() {
         return color;
+    }
+
+    @Override
+    public void setOutline(String c) {
+        this.outline = c;
+    }
+
+    @Override
+    public String getOutline() {
+        return outline;
     }
 
     @Override

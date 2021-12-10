@@ -11,7 +11,9 @@ public class Triangle implements IShape {
     int posx3;
     int posy3;
     int ID;
-    public Triangle(String s, int posx1, int posy1, int posx2, int posy2, int posx3, int posy3,int ID, String color) {
+    String outline;
+    public Triangle(String s, int posx1, int posy1, int posx2, int posy2, int posx3, int posy3,
+                    int ID, String color, String outline) {
         this.parameters = s;
         this.posx1 = posx1;
         this.posy1= posy1;
@@ -21,6 +23,7 @@ public class Triangle implements IShape {
         this.posy3= posy3;
         this.ID = ID;
         this.color = color;
+        this.outline = outline;
     }
 
     /*public Triangle() {
@@ -44,6 +47,7 @@ public class Triangle implements IShape {
         this.posy3 = Integer.parseInt(temp[6]);
         setID(Integer.parseInt(temp[7]));
         setColor(temp[8]);
+        setOutline(temp[9]);
     }
 
     @Override
@@ -63,6 +67,16 @@ public class Triangle implements IShape {
     @Override
     public String getColor() {
         return color;
+    }
+
+    @Override
+    public void setOutline(String c) {
+        this.outline = c;
+    }
+
+    @Override
+    public String getOutline() {
+        return outline;
     }
 
     @Override

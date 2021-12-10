@@ -96,7 +96,7 @@ public class FilesController {
                         getTagInfo(nodeList.item(i));
             }
             int lastid = Operations.getLastID();
-            System.out.println(lastid);
+            System.out.println("last id is " +lastid);
         }
         catch (ParserConfigurationException | IOException | SAXException e1) {
                     e1.printStackTrace();
