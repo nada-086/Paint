@@ -55,7 +55,7 @@ export class AppComponent {
   }
   // how will be the object distinguished for the next 3 operations
   copy() {
-    // the object needed to be sent
+    
   }
 
   cut() {

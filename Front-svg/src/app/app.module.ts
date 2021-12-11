@@ -4,7 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { ColorPickerModule } from 'ngx-color-picker';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { ColorPickerModule } from 'ngx-color-picker';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ColorPickerModule
+    FormsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

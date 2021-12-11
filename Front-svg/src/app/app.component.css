@@ -82,3 +82,15 @@ footer{
 .greater{
     font-size: 40px;
 }
+
+form{
+    display: none;
+    z-index: 3;
+    background-color: black;
+    grid-column:  3 / 7;
+    grid-row: 2 / 5;
+    padding: 10px;
+}
+label{
+    padding: 10px;
+}
