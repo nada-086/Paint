@@ -20,10 +20,10 @@ public class Square implements IShape {
         this.outline = outline;
     }
 
-   /* public Square() {
+    public Square() {
         super();
     }
-*/
+
    @Override
    public String getAttributes() {
        return parameters;

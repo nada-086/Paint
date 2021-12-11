@@ -23,10 +23,10 @@ public class Rectangle implements IShape {
         this.outline = outline;
     }
 
-    /*public Rectangle() {
+    public Rectangle() {
         super();
     }
-*/
+
     @Override
     public String getAttributes() {
         return parameters;

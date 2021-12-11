@@ -26,10 +26,10 @@ public class Triangle implements IShape {
         this.outline = outline;
     }
 
-    /*public Triangle() {
+    public Triangle() {
         super();
     }
-*/
+
     @Override
     public String getAttributes() {
         return parameters;

@@ -20,10 +20,10 @@ public class Ellipse implements IShape {
         this.color = color;
         this.outline = outline;
     }
-   /* public Ellipse() {
+    public Ellipse() {
         super();
     }
-*/
+
     @Override
     public String getAttributes() {
         return parameters;

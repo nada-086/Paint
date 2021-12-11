@@ -18,10 +18,10 @@ public class Circle implements IShape {
         this.color = color;
         this.outline = outline;
     }
-/*
+
     public Circle() {
         super();
-    }*/
+    }
 
     @Override
     public String getAttributes() {

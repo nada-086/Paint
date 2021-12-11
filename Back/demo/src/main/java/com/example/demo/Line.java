@@ -21,10 +21,10 @@ public class Line implements IShape {
         this.outline = outline;
     }
 
-    /*public Line() {
+    public Line() {
         super();
     }
-*/
+
     @Override
     public String getAttributes() {
         return parameters;

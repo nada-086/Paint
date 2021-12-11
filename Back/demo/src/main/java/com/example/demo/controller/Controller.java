@@ -13,7 +13,7 @@ import java.util.*;
 public class Controller {
     @GetMapping("/shape")
     @ResponseBody
-    public ArrayList getInstances(@RequestParam(name = "parameters") String paramters) {
+    public ArrayList getInstances(@RequestParam(name = "shape") String paramters) {
         String[] s = paramters.split(",");
         String type = s[0];
         return ShapeFactory.createShape(type, s, paramters);
@@ -21,40 +21,50 @@ public class Controller {
 
     @GetMapping("/color")
     @ResponseBody
-    public ArrayList<IShape> changeColor(@RequestParam(name = "id") int ID,
-                                         @RequestParam(name = "parameters") String newParameters) {
+    public ArrayList<IShape> changeColor(@RequestParam(name = "shape") String shape) {
+        String[] temp = shape.split(",");
+        int ID = Integer.parseInt(temp[0]);
+        String newParameters = temp[1];
         return Operations.updateShapeStatus(ID, newParameters);
     }
 
     @GetMapping("/resize")
     @ResponseBody
-    public ArrayList<IShape> resize(@RequestParam(name = "id") int ID,
-                                    @RequestParam(name = "parameters") String newParameters) {
+    public ArrayList<IShape> resize(@RequestParam(name = "shape") String shape) {
+        String[] temp = shape.split(",");
+        int ID = Integer.parseInt(temp[0]);
+        String newParameters = temp[1];
         return Operations.updateShapeStatus(ID, newParameters);
     }
 
     @GetMapping("/move")
     @ResponseBody
-    public ArrayList<IShape> move(@RequestParam(name = "id") int ID,
-                                  @RequestParam(name = "parameters") String newParameters) {
+    public ArrayList<IShape> move(@RequestParam(name = "shape") String shape) {
+        String[] temp = shape.split(",");
+        int ID = Integer.parseInt(temp[0]);
+        String newParameters = temp[1];
         return Operations.updateShapeStatus(ID, newParameters);
     }
 
     @GetMapping("/delete")
     @ResponseBody
-    public ArrayList<IShape> delete(@RequestParam(name = "id") int ID) {
+    public ArrayList<IShape> delete(@RequestParam(name = "shape") String shape) {
+        int ID = Integer.parseInt(shape);
         return Operations.delete(ID);
     }
 
     @GetMapping("/copy")
     @ResponseBody
-    public ArrayList<IShape> copy(@RequestParam(name = "id1") int id1, @RequestParam(name = "id2") int id2) {
+    public ArrayList<IShape> copy(@RequestParam(name = "shape") String shape) {
+        String[] temp = shape.split(",");
+        int id1 = Integer.parseInt(temp[0]);
+        int id2 = Integer.parseInt(temp[1]);
         return Operations.copy(id1, id2);
     }
 
     @GetMapping("/undo")
     @ResponseBody
-    public void undo(@RequestParam(name = "undo") String undo) {
+    public void undo(@RequestParam(name = "shape") String undo) {
         String[] temp = undo.split(",");
         String operation = temp[0];
         int ID = Integer.parseInt(temp[1]);
@@ -74,7 +84,7 @@ public class Controller {
     }
     @GetMapping("/save")
     @ResponseBody
-    public void save(@RequestParam(name = "path") String filePath) {
+    public void save(@RequestParam(name = "shape") String filePath) {
         if(filePath.contains(".xml")) {
             FilesController.saveXML(filePath);
         }
@@ -85,7 +95,7 @@ public class Controller {
 
     @GetMapping("/load")
     @ResponseBody
-    public void load(@RequestParam(name = "path") String filePath) throws IOException {
+    public void load(@RequestParam(name = "shape") String filePath) throws IOException {
         if(filePath.contains(".xml")) {
             FilesController.loadXML(filePath);
         }

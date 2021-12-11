@@ -36,7 +36,7 @@ public class FilesController {
             doc.appendChild(rootElement);
             for(int i=0; i<ShapeFactory.shapes.size(); i++) {
                 Element root = doc.createElement("shapes");
-                    //create name element
+                //create name element
                 root.appendChild(getEmployeeElements(doc, root, "Attributes", ShapeFactory.shapes.get(i).getAttributes()));
                 //append children element to root element
                 rootElement.appendChild(getNodes(doc, ShapeFactory.shapes.get(i).getAttributes(), "shapes"));
@@ -92,14 +92,14 @@ public class FilesController {
             //now XML is loaded as Document in memory, lets convert it to Object List
             // List<Object> empList = new ArrayList<Object>();
             for (int i = 0; i < nodeList.getLength(); i++) {
-               // empList.add(
-                        getTagInfo(nodeList.item(i));
+                // empList.add(
+                getTagInfo(nodeList.item(i));
             }
             int lastid = Operations.getLastID();
             System.out.println("last id is " +lastid);
         }
         catch (ParserConfigurationException | IOException | SAXException e1) {
-                    e1.printStackTrace();
+            e1.printStackTrace();
         }
         return loadShapes;
     }
@@ -127,7 +127,7 @@ public class FilesController {
         return node.getNodeValue();
     }
 
-////////JSON
+    ////////JSON
     public static void saveJSON(String filePath) {
         JSONObject jsonObject = new JSONObject();
         JSONArray jsonArray = new JSONArray();
