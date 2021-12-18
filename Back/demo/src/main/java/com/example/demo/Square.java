@@ -10,10 +10,11 @@ public class Square implements IShape {
     int ID;
     String color;
     String outline;
-    public Square(String s, int x, int y, int width, int ID, String color, String outline){
+    public Square(String s, int x, int y, int length, int width, int ID, String color, String outline){
         this.parameters = s;
         this.posx = x;
         this.posy = y;
+        this.length = length;
         this.width = width;
         this.ID = ID;
         this.color=color;
@@ -36,9 +37,13 @@ public class Square implements IShape {
         this.posx = Integer.parseInt(temp[1]);
         this.posy = Integer.parseInt(temp[2]);
         this.width = Integer.parseInt(temp[3]);
-        setID(Integer.parseInt(temp[4]));
-        setColor(temp[5]);
-        setOutline(temp[6]);
+        this.length = Integer.parseInt((temp[4]));
+        this.ID = Integer.parseInt(temp[5]);
+    //    setID(Integer.parseInt(temp[5]));
+        this.color = temp[6];
+       // setColor(temp[6]);
+        this.outline = temp[7];
+  //      setOutline(temp[7]);
     }
 
     @Override

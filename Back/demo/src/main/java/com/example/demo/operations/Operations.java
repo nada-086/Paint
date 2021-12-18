@@ -8,10 +8,16 @@ import java.util.ArrayList;
 public class Operations {
 
     public static ArrayList<IShape> updateShapeStatus(int ID, String updatedParameters) {
+        System.out.println("SIZE");
+        System.out.println(ShapeFactory.shapes.size());
         for(int i = 0; i< ShapeFactory.shapes.size(); ++i) {
             IShape temp = ShapeFactory.shapes.get(i);
             if (temp.getID() == ID) {
+              //  System.out.println("BEFORE");
+               // System.out.println(ShapeFactory.shapes.get(i).getAttributes());
                 ShapeFactory.shapes.get(i).setAttributes(updatedParameters);
+              //  System.out.println("AFTRE");
+             //   System.out.println(ShapeFactory.shapes.get(i).getAttributes());
                 return ShapeFactory.shapes;
             }
         }
@@ -23,7 +29,8 @@ public class Operations {
             IShape temp = ShapeFactory.shapes.get(i);
             if(temp.getID() == ID) {
                 ShapeFactory.shapes.remove(i);
-                return ShapeFactory.shapes;
+              //  System.out.println("DELE");
+                System.out.println(ShapeFactory.shapes.size());
             }
         }
         return null;
@@ -40,7 +47,7 @@ public class Operations {
         }
         return null;
     }
-
+/*
     public static int getLastID() {
         int id=0;
         for(int i=0; i<ShapeFactory.shapes.size(); i++) {
@@ -49,41 +56,5 @@ public class Operations {
             }
         }
         return id;
-    }
+    }*/
 }
-    /*
-    public static ArrayList<IShape> changeColor(int ID, String updatedParameters) {
-        for (int i = 0; i < ShapeFactory.shapes.size(); ++i) {
-            IShape temp = ShapeFactory.shapes.get(ID);
-            if (temp.getID() == ID) {
-                ShapeFactory.shapes.get(i).setAttributes(updatedParameters);
-             //   ShapeFactory.shapes.set(i, temp);
-                return ShapeFactory.shapes;
-            }
-        }
-        return null;
-    }
-
-
-    public static ArrayList<IShape> resize(int ID, String updatedParameters) {
-        for(int i=0; i<ShapeFactory.shapes.size(); i++) {
-            IShape temp = ShapeFactory.shapes.get(i);
-            if (temp.getID() == ID) {
-                ShapeFactory.shapes.get(i).setAttributes(updatedParameters);
-                return ShapeFactory.shapes;
-            }
-        }
-        return null;
-    }
-
-    public static ArrayList<IShape> move(int ID, String updatedParameters) {
-        for(int i=0; i<ShapeFactory.shapes.size(); ++i) {
-            IShape temp = ShapeFactory.shapes.get(i);
-            if (temp.getID() == ID) {
-                ShapeFactory.shapes.get(i).setAttributes(updatedParameters);
-                return ShapeFactory.shapes;
-            }
-        }
-        return null;
-    }
-    */

@@ -12,6 +12,8 @@ public class ShapeFactory {
 
     public  static ArrayList createShape(String shapeType, String[] s, String para) {
         System.out.println("type is " + shapeType);
+        System.out.println(para);
+
         if(shapeType == null) {
             return null;
         }
@@ -29,16 +31,15 @@ public class ShapeFactory {
             return shapes;
         }
         else if(shapeType.equalsIgnoreCase("Circle")) {
-
             int x = Integer.parseInt(s[1]);
             int y = Integer.parseInt(s[2]);
             int radius = Integer.parseInt(s[3]);
             int ID = Integer.parseInt(s[4]);
+            //System.out.println(("ID IS")+ ID);
             String color = s[5];
             String outline = s[6];
             IShape newShape = new Circle(para, x, y, radius, ID, color, outline);
             shapes.add(newShape);
-            System.out.println("AYO");
             return shapes;
         }
         else if(shapeType.equalsIgnoreCase("Ellipse")) {
@@ -71,10 +72,11 @@ public class ShapeFactory {
             int x = Integer.parseInt(s[1]);
             int y = Integer.parseInt(s[2]);
             int width = Integer.parseInt(s[3]);
-            int ID = Integer.parseInt(s[4]);
-            String color = s[5];
-            String outline = s[6];
-            IShape newShape = new Square(para, x, y, width, ID, color, outline);
+            int length = Integer.parseInt(s[4]);
+            int ID = Integer.parseInt(s[5]);
+            String color = s[6];
+            String outline = s[7];
+            IShape newShape = new Square(para, x, y, length, width, ID, color, outline);
             shapes.add(newShape);
             return shapes;
         }
@@ -85,10 +87,9 @@ public class ShapeFactory {
             int y2 = Integer.parseInt(s[4]);
             int ID = Integer.parseInt(s[5]);
             String color = s[6];
-            String outline = s[7];
+            String outline = "";
             IShape newShape = new Line(para, x1, y1, x2, y2, ID, color, outline);
             shapes.add(newShape);
-            System.out.println("size is " + shapes.size());
             return shapes;
         }
         return null;

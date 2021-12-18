@@ -37,7 +37,7 @@ public class FilesController {
             for(int i=0; i<ShapeFactory.shapes.size(); i++) {
                 Element root = doc.createElement("shapes");
                 //create name element
-                root.appendChild(getEmployeeElements(doc, root, "Attributes", ShapeFactory.shapes.get(i).getAttributes()));
+                root.appendChild(getElements(doc, root, "Attributes", ShapeFactory.shapes.get(i).getAttributes()));
                 //append children element to root element
                 rootElement.appendChild(getNodes(doc, ShapeFactory.shapes.get(i).getAttributes(), "shapes"));
             }
@@ -62,24 +62,21 @@ public class FilesController {
     }
 
     private static Node getNodes(Document doc, String attributes, String type) {
-        // , String name, String age, String role, String gender)
-
         Element employee = doc.createElement(type);
         //create attributes element
-        employee.appendChild(getEmployeeElements(doc, employee, "Attributes", attributes));
+        employee.appendChild(getElements(doc, employee, "Attributes", attributes));
         return employee;
     }
     //utility method to create text node
-    private static Node getEmployeeElements(Document doc, Element element, String name, String value) {
+    private static Node getElements(Document doc, Element element, String name, String value) {
         Element node = doc.createElement(name);
         node.appendChild(doc.createTextNode(value));
         return node;
     }
 
-    public static List<String> loadXML(String filePath) throws IOException {
+    public static String loadXML(String filePath) throws IOException {
         ShapeFactory.shapes.clear();
         loadShapes.clear();
-        //String filePath = "./shapes.xml";
         File xmlFile = new File(filePath);
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder;
@@ -89,10 +86,8 @@ public class FilesController {
             doc.getDocumentElement().normalize();
             System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
             NodeList nodeList = doc.getElementsByTagName("shapes");
-            //now XML is loaded as Document in memory, lets convert it to Object List
-            // List<Object> empList = new ArrayList<Object>();
+            //now XML is loaded as Document in memory
             for (int i = 0; i < nodeList.getLength(); i++) {
-                // empList.add(
                 getTagInfo(nodeList.item(i));
             }
             int lastid = Operations.getLastID();
@@ -101,16 +96,22 @@ public class FilesController {
         catch (ParserConfigurationException | IOException | SAXException e1) {
             e1.printStackTrace();
         }
-        return loadShapes;
+        System.out.println("LOAD");
+        System.out.println(loadShapes);
+        String str = String.join(",", loadShapes);
+        System.out.println("JOIN" + str);
+        return str;
     }
 
     private static void getTagInfo(Node node) {
-        //XMLReaderDOM domReader = new XMLReaderDOM();
-        Object emp = new Object();
+
+       // Object emp = new Object();
+       // String result = "";
         if (node.getNodeType() == Node.ELEMENT_NODE) {
             Element element = (Element) node;
             String str = getTagValue("Attributes", element);
             loadShapes.add(str);
+
             String separator =",";
             int sepPos = str.indexOf(separator);
             String attributes = str.substring(sepPos + separator.length());
@@ -119,7 +120,7 @@ public class FilesController {
             ShapeFactory.createShape(types, s, str);
             System.out.println(str);
         }
-        // return emp;
+
     }
     private static String getTagValue(String tag, Element element) {
         NodeList nodeList = element.getElementsByTagName(tag).item(0).getChildNodes();
@@ -136,8 +137,7 @@ public class FilesController {
             //  jsonObject.put("Shapes",null);
             for(int i=0; i<ShapeFactory.shapes.size(); i++) {
                 JSONObject type = new JSONObject();
-                //   type.put("Type",ShapeFactory.shapes.get(i).getType());
-                // JSONObject attribute = new JSONObject();
+
                 type.put("Attributes",ShapeFactory.shapes.get(i).getAttributes());
                 jsonArray.add(type);
             }
@@ -152,18 +152,18 @@ public class FilesController {
         }
     }
 
-    public static List<String> loadJSON(String filePath) {
+    public static String loadJSON(String filePath) {
         List<String> objects = new ArrayList<String>();
         JSONParser parser = new JSONParser();
         JSONObject jsonObject;
         try {
             ShapeFactory.shapes.clear();
-            JSONArray jsonArray = new JSONArray();
+           // JSONArray jsonArray = new JSONArray();
             jsonObject = (JSONObject) parser.parse(new FileReader(filePath));
             JSONArray shapes = (JSONArray) jsonObject.get("Shapes");
             for (Object o : shapes) {
-                JSONObject person = (JSONObject) o;
-                String param = (String) person.get("Attributes");
+                JSONObject obj = (JSONObject) o;
+                String param = (String) obj.get("Attributes");
                 objects.add(param);
                 String separator =",";
                 int sepPos = param.indexOf(separator);
@@ -174,6 +174,11 @@ public class FilesController {
                 System.out.println(types);
                 System.out.println(attributes);
             }
+            System.out.println("Objects");
+            System.out.println(objects);
+            String str = String.join(",", objects);
+            System.out.println("JOIN" + str);
+            return str;
         }
         catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -184,6 +189,8 @@ public class FilesController {
         catch (ParseException e) {
             e.printStackTrace();
         }
-        return objects;
+        return null;
     }
+
+
 }

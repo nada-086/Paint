@@ -2,6 +2,7 @@ package com.example.demo.controller;
 import com.example.demo.IShape;
 import com.example.demo.ShapeFactory;
 import com.example.demo.operations.Operations;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import java.io.*;
 import java.util.*;
@@ -12,41 +13,49 @@ import java.util.*;
 
 public class Controller {
     @GetMapping("/shape")
-    @ResponseBody
-    public ArrayList getInstances(@RequestParam(name = "shape") String paramters) {
-        String[] s = paramters.split(",");
+    @ResponseStatus(value = HttpStatus.OK)
+    //@ResponseBody
+    public void  getInstances(@RequestParam(name = "shape") String shape) {
+       // System.out.println(shape);
+        String[] s = shape.split(",");
         String type = s[0];
-        return ShapeFactory.createShape(type, s, paramters);
+       ShapeFactory.createShape(type, s, shape);
     }
 
     @GetMapping("/color")
+    @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public ArrayList<IShape> changeColor(@RequestParam(name = "shape") String shape) {
+    public void changeColor(@RequestParam(name = "shape") String shape) {
         String[] temp = shape.split(",");
         int ID = Integer.parseInt(temp[0]);
-        String newParameters = temp[1];
-        return Operations.updateShapeStatus(ID, newParameters);
+        String newParameters = shape.substring(2);
+        System.out.println(Operations.updateShapeStatus(ID, newParameters));
     }
 
     @GetMapping("/resize")
+    @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
     public ArrayList<IShape> resize(@RequestParam(name = "shape") String shape) {
         String[] temp = shape.split(",");
         int ID = Integer.parseInt(temp[0]);
-        String newParameters = temp[1];
-        return Operations.updateShapeStatus(ID, newParameters);
+        System.out.println(shape);
+        String newParameters = shape.substring(2);
+        System.out.println(Operations.updateShapeStatus(ID, newParameters));
+        return null;
     }
 
     @GetMapping("/move")
+    @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public ArrayList<IShape> move(@RequestParam(name = "shape") String shape) {
+    public void move(@RequestParam(name = "shape") String shape) {
         String[] temp = shape.split(",");
         int ID = Integer.parseInt(temp[0]);
-        String newParameters = temp[1];
-        return Operations.updateShapeStatus(ID, newParameters);
+        String newParameters = shape.substring(2);
+        System.out.println(Operations.updateShapeStatus(ID, newParameters));
     }
 
     @GetMapping("/delete")
+    @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
     public ArrayList<IShape> delete(@RequestParam(name = "shape") String shape) {
         int ID = Integer.parseInt(shape);
@@ -54,15 +63,17 @@ public class Controller {
     }
 
     @GetMapping("/copy")
+    @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public ArrayList<IShape> copy(@RequestParam(name = "shape") String shape) {
-        String[] temp = shape.split(",");
-        int id1 = Integer.parseInt(temp[0]);
-        int id2 = Integer.parseInt(temp[1]);
-        return Operations.copy(id1, id2);
+    public void copy(@RequestParam(name = "shape") String shape) {
+        System.out.println(shape);
+        String[] s = shape.split(",");
+        String type = s[0];
+        ShapeFactory.createShape(type, s, shape);
     }
 
     @GetMapping("/undo")
+    @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
     public void undo(@RequestParam(name = "shape") String undo) {
         String[] temp = undo.split(",");
@@ -71,7 +82,6 @@ public class Controller {
         int ind1 = undo.indexOf(",");
         int ind2 = undo.indexOf(",", ind1 + 1);
         String oldParameters= undo.substring(ind2+1);
-        System.out.println("undoOLD"+ oldParameters);
         if(operation == "draw" || operation == "copy") {
             Operations.delete(ID);
         }
@@ -83,6 +93,7 @@ public class Controller {
         }
     }
     @GetMapping("/save")
+    @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
     public void save(@RequestParam(name = "shape") String filePath) {
         if(filePath.contains(".xml")) {
@@ -94,19 +105,26 @@ public class Controller {
     }
 
     @GetMapping("/load")
+    @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    public void load(@RequestParam(name = "shape") String filePath) throws IOException {
+    public String load(@RequestParam(name = "shape") String filePath) throws IOException {
+        System.out.println("hena");
         if(filePath.contains(".xml")) {
-            FilesController.loadXML(filePath);
+           System.out.println(FilesController.loadXML(filePath));
+           return FilesController.loadXML(filePath);
         }
         else if(filePath.contains(".json")) {
-            FilesController.loadJSON(filePath);
+            System.out.println(FilesController.loadJSON(filePath));
+            return FilesController.loadJSON(filePath);
         }
+        return null;
     }
 
     @GetMapping("/new")
+    @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
     public void newFile() {
+
         ShapeFactory.shapes.clear();
     }
 }

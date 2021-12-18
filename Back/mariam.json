@@ -1,0 +1,13 @@
+[ {
+  "type" : "circle",
+  "color" : "red",
+  "outline" : "blue",
+  "attributes" : "circle,32,43,12,1,red,blue",
+  "id" : 1
+}, {
+  "type" : "rectangle",
+  "color" : "red",
+  "outline" : "pinkyyyy",
+  "attributes" : "rectangle,21,32,43,12,2,red,pinkyyyy",
+  "id" : 2
+} ]

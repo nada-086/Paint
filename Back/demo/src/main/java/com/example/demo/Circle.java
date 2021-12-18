@@ -32,12 +32,15 @@ public class Circle implements IShape {
    public void setAttributes(String attributes) {
         String[] temp = attributes.split(",");
         this.parameters = attributes;
-        this.radius = Integer.parseInt(temp[1]);
-        this.posx = Integer.parseInt(temp[2]);
-        this.posy = Integer.parseInt(temp[3]);
-        setID(Integer.parseInt(temp[4]));
-        setColor(temp[5]);
-        setOutline(temp[6]);
+        this.type = type;
+        this.posx = Integer.parseInt(temp[1]);
+        this.posy = Integer.parseInt(temp[2]);
+        this.radius = Integer.parseInt(temp[3]);
+        this.ID = Integer.parseInt(temp[4]);
+       // setID(Integer.parseInt(temp[4]));
+        this.color = temp[5];
+        //setOutline(temp[6]);
+       this.outline = temp[6];
    }
     @Override
     public String getType() {
