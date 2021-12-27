@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="16" class="java.beans.XMLDecoder">
+ <object class="java.util.ArrayList">
+  <void method="add">
+   <object class="com.example.demo.Circle">
+    <void property="ID">
+     <int>2</int>
+    </void>
+    <void property="color">
+     <string>red</string>
+    </void>
+    <void property="width">
+     <int>55</int>
+    </void>
+    <void property="x">
+     <int>4</int>
+    </void>
+    <void property="y">
+     <int>6</int>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="com.example.demo.Circle">
+    <void property="ID">
+     <int>22</int>
+    </void>
+    <void property="color">
+     <string>red</string>
+    </void>
+    <void property="width">
+     <int>3</int>
+    </void>
+    <void property="x">
+     <int>32</int>
+    </void>
+    <void property="y">
+     <int>33</int>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="com.example.demo.Ellipse">
+    <void property="ID">
+     <int>22</int>
+    </void>
+    <void property="color">
+     <string>red</string>
+    </void>
+    <void property="length">
+     <int>34</int>
+    </void>
+    <void property="width">
+     <int>3</int>
+    </void>
+    <void property="x">
+     <int>32</int>
+    </void>
+    <void property="y">
+     <int>33</int>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="com.example.demo.Square">
+    <void property="ID">
+     <int>34</int>
+    </void>
+    <void property="color">
+     <string>red</string>
+    </void>
+    <void property="width">
+     <int>3</int>
+    </void>
+    <void property="x">
+     <int>32</int>
+    </void>
+    <void property="y">
+     <int>33</int>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="com.example.demo.Line">
+    <void property="ID">
+     <int>222</int>
+    </void>
+    <void property="color">
+     <string>red</string>
+    </void>
+    <void property="width">
+     <int>32</int>
+    </void>
+    <void property="y">
+     <int>33</int>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="com.example.demo.Triangle">
+    <void property="ID">
+     <int>67</int>
+    </void>
+    <void property="color">
+     <string>red</string>
+    </void>
+    <void property="length">
+     <int>34</int>
+    </void>
+    <void property="width">
+     <int>3</int>
+    </void>
+    <void property="x">
+     <int>32</int>
+    </void>
+    <void property="y">
+     <int>33</int>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="com.example.demo.Rectangle">
+    <void property="ID">
+     <int>672</int>
+    </void>
+    <void property="color">
+     <string>red</string>
+    </void>
+    <void property="length">
+     <int>34</int>
+    </void>
+    <void property="width">
+     <int>3</int>
+    </void>
+    <void property="x">
+     <int>32</int>
+    </void>
+    <void property="y">
+     <int>33</int>
+    </void>
+   </object>
+  </void>
+ </object>
+</java>

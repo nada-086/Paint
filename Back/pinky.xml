@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<Shapes>
+    <shapes>
+        <Attributes>rectangle,3,32,32,43,2,blue</Attributes>
+    </shapes>
+    <shapes>
+        <Attributes>circle,32,32,43,1,red</Attributes>
+    </shapes>
+</Shapes>
