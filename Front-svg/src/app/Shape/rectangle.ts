@@ -5,24 +5,30 @@ export class rectangle implements Shape {
     type = "rectangle";
     constructor(private renderer: Renderer2, private svg: any) { };
     private newRect: any;
+    status = "";
     length: number = 0;
     width: number = 0;
     x: number = 0;
     y: number = 0;
     offsetX : number = 0;
     offsetY: number = 0;
-    color: string = "#000000";
+    color = "";
+    fill: string = "#ffffff";
+    stroke = "#000000"
     id: number = 0;
+
     getType():string{
         return this.type;
-    }
+      }
     startDraw(event: MouseEvent) {
         this.x = event.offsetX;
         this.y = event.offsetY;
         this.newRect = this.renderer.createElement('rect', 'svg');
         this.renderer.appendChild(this.svg.nativeElement, this.newRect);
         this.renderer.setAttribute(this.newRect, "id", this.id.toString());  
-        this.renderer.setAttribute(this.newRect, "fill", "#000000");
+        this.renderer.setAttribute(this.newRect, "fill", this.fill);
+        this.renderer.setAttribute(this.newRect, "stroke", this.stroke);
+        this.renderer.setAttribute(this.newRect, "stroke-width", "3");
         this.renderer.setAttribute(this.newRect, "x", this.x.toString());
         this.renderer.setAttribute(this.newRect, "y", this.y.toString());
         this.renderer.setAttribute(this.newRect, "width", "1");
@@ -30,13 +36,15 @@ export class rectangle implements Shape {
         this.renderer.setAttribute(this.newRect, "id", this.id.toString());
     }
     set(){
+        this.newRect = document.getElementById(this.id.toString());
         this.renderer.setAttribute(this.newRect, "id", this.id.toString());  
-        this.renderer.setAttribute(this.newRect, "fill", "#000000");
         this.renderer.setAttribute(this.newRect, "x", this.x.toString());
         this.renderer.setAttribute(this.newRect, "y", this.y.toString());
         this.renderer.setAttribute(this.newRect, "width", this.width.toString());
         this.renderer.setAttribute(this.newRect, "height", this.length.toString());
-        this.renderer.setAttribute(this.newRect, "id", this.id.toString());   
+        this.renderer.setAttribute(this.newRect, "fill", this.fill);
+        this.renderer.setAttribute(this.newRect, "stroke", this.stroke);
+        this.renderer.setAttribute(this.newRect, "stroke-width", "3"); 
     }
     draw(event: MouseEvent) {
         this.width = (event.offsetX - this.x)
@@ -46,7 +54,14 @@ export class rectangle implements Shape {
         this.renderer.setAttribute(this.newRect, "width", this.width.toString());
         this.renderer.setAttribute(this.newRect, "height", this.length.toString());
         
-    };
+    }
+    setColor(fill : string, stroke: string) {
+        this.fill = fill;
+        this.stroke = stroke;
+        this.newRect = document.getElementById(this.id.toString());
+        this.renderer.setAttribute(this.newRect, "fill", this.fill);
+        this.renderer.setAttribute(this.newRect, "stroke", this.stroke);
+     }
     resize(event: MouseEvent) {
         var shape = document.getElementById(this.id.toString());
         var length = this.length + event.offsetY - this.offsetY;
@@ -59,7 +74,7 @@ export class rectangle implements Shape {
         shape.setAttribute("width", this.width.toString());
         this.offsetX = event.offsetX;
         this.offsetY = event.offsetY;
-    };
+    }
     startSelect() {
     }
     endSelect(){};
@@ -73,11 +88,10 @@ export class rectangle implements Shape {
         this.offsetY = event.offsetY;
     }
     remove(array: Shape[] = []) {
-        var x = array.map(function(e) { return e.id; }).indexOf(this.id);
+        this.newRect = document.getElementById(this.id.toString())
         this.renderer.removeChild(this.svg.nativeElement, this.newRect);
-    }
+     }
     select(x: number, y: number): boolean {
-        console.log(this.length, this.width, this.x, this.y)
         if (x >= this.x && x <= this.width + this.x
             && y >= this.y && y <= this.length + this.y) {
             this.offsetX = x;
@@ -88,30 +102,37 @@ export class rectangle implements Shape {
     }
 
     getAttributes():string{
-        var attributes = this.x.toString()+ ","
+        var attributes = this.type +","
+                        +this.x.toString()+ ","
                         +this.y.toString()+ "," 
                         +this.length.toString() +","
                         +this.width.toString() +","  
                         +this.id.toString() + ","
-                        +this.color.toString();
+                        +this.fill + ","
+                        +this.stroke;
+    
         return attributes;
     }
     setAttributes(attributes : string){
         var data = attributes.split(",");
-        this.x = parseInt(data[0]);
-        this.y = parseInt(data[1]);
-        this.length = parseInt(data[2]);
-        this.width = parseInt(data[3]);
-        this.id = parseInt(data[4]);
-        this.color = data[5];
+        this.x = parseInt(data[1]);
+        this.y = parseInt(data[2]);
+        this.length = parseInt(data[3]);
+        this.width = parseInt(data[4]);
+        this.id = parseInt(data[5]); 
+        this.fill = data[6];
+        this.stroke = data[7];   
     }
     copy(operation : string){
-        if(operation ==="copy"){
+     if(operation ==="copy"){
             this.x = this.x +20;
             this.y = this.y +20;
         }
-        this.newRect = this.renderer.createElement('rect', 'svg');
-        this.set()
-        this.renderer.appendChild(this.svg.nativeElement, this.newRect);
+    this.newRect = this.renderer.createElement('rect', 'svg');
+    this.renderer.setAttribute(this.newRect, "id", this.id.toString()); 
+    this.renderer.appendChild(this.svg.nativeElement, this.newRect);
+    this.set()
+    
     }
+    
 }

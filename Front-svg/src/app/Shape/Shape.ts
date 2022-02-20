@@ -1,9 +1,11 @@
 export class Shape {
     type : string =""; 
-    color: string = "#000000";
+    color: string = "";
     id: number = 0;
+    status = "";
     startDraw(event: MouseEvent) {};
     draw(event: MouseEvent){};
+    setColor(fill : string, stroke: string){};
     resize(event: MouseEvent) {};
     startSelect(){};
     endSelect(){};
@@ -17,6 +19,7 @@ export class Shape {
     setAttributes(attributes: string){};
     getType():string{
         return this.type;
-    }
+      }
     set(){}
+
 }

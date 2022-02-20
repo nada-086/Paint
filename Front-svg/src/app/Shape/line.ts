@@ -3,6 +3,7 @@ import { Shape } from "./Shape";
 
 export class line implements Shape{
     type = "line";
+    status = "";
     constructor(private renderer: Renderer2, private svg: any) { };
     private line: any;
     x1: number = 0; 
@@ -13,29 +14,36 @@ export class line implements Shape{
     c2:boolean = false;
     offsetX : number = 0;
     offsetY : number = 0;
-    color: string = "#000000";
+    color = "";
+    fill = "#fffffff";
+    stroke = "#000000";
     id: number = 0;
     getType():string{
         return this.type;
-    }
+      }
     startDraw(event: MouseEvent) {
         this.x1 = event.offsetX;
         this.y1 = event.offsetY;
         this.line = this.renderer.createElement('line', 'svg');
-        this.line.setAttribute("stroke", "black");
+        this.line.setAttribute("stroke", this.stroke.toString());
         this.line.setAttribute("x1", this.x1.toString());
         this.line.setAttribute("y1", this.y1.toString());
         this.line.setAttribute("x2", this.x1.toString());
         this.line.setAttribute("y2", this.y1.toString());
         this.line.setAttribute("id", this.id.toString());
+        this.line.setAttribute("stroke-width", "3");
         this.renderer.appendChild(this.svg.nativeElement, this.line);
-    };
+    }
     draw(event: MouseEvent) {
         this.x2= event.offsetX;
         this.y2 = event.offsetY; 
         this.line.setAttribute("x2", this.x2.toString());
         this.line.setAttribute("y2", this.y2.toString());
-    };
+    }
+    setColor(fill : string, stroke: string){
+        this.stroke = fill;
+        this.line.setAttribute("stroke", this.stroke)
+    }
     resize(event: MouseEvent) {
         if(this.c1){
         this.x1= event.offsetX;
@@ -49,7 +57,7 @@ export class line implements Shape{
         this.line.setAttribute("x2", this.x2.toString());
         this.line.setAttribute("y2", this.y2.toString());
         }
-    };
+     }
     startSelect(){
         if(document.getElementById(this.id.toString()) === null) return;
         var circle1 = this.renderer.createElement('circle', 'svg');
@@ -68,7 +76,7 @@ export class line implements Shape{
         circle2.setAttribute("id", "c1");
         this.renderer.appendChild(this.svg.nativeElement, circle1);
         this.renderer.appendChild(this.svg.nativeElement, circle2);
-    };
+    }
     move(event: MouseEvent) {
         this.x1 = this.x1 + event.offsetX - this.offsetX;
         this.y1 = this.y1 + event.offsetY - this.offsetY;
@@ -81,7 +89,7 @@ export class line implements Shape{
         this.line.setAttribute("y2", this.y2.toString());
         this.offsetX = event.offsetX;
         this.offsetY = event.offsetY;
-    };
+     }
     endSelect(){
         this.c1 = false;
         this.c2 = false;
@@ -91,8 +99,9 @@ export class line implements Shape{
                 }
     }
     remove(array: Shape[] = []) { 
+        this.line = document.getElementById(this.id.toString());
         this.renderer.removeChild(this.svg.nativeElement, this.line);
-    };
+    }
     select( x: number, y: number): boolean {
         this.c1 = (this.x1 - x) * (this.x1 - x) + (this.y1 - y) * (this.y1 - y) < 64;
         this.c2 = (this.x2 - x) * (this.x2 - x) + (this.y2 -y) * (this.y2 -y) < 64;
@@ -108,43 +117,45 @@ export class line implements Shape{
         return false
     }
     getAttributes():string{
-        return this.x1.toString() + "," 
-                +this.y1.toString() + ","
-                +this.x2.toString() + ","
-                +this.y2.toString() + "," 
-                +this.id.toString() + "," 
-                +this.color.toString();
+        return this.type +","
+              +this.x1.toString() + "," 
+              +this.y1.toString() + ","
+              +this.x2.toString() + ","
+              +this.y2.toString() + "," 
+              +this.id.toString() + "," 
+              +this.stroke.toString();
+                     
     }
     setAttributes(attributes: string){
         var data = attributes.split(",");
-        this.x1 = parseInt(data[0]);
-        this.y1 = parseInt(data[1]);
-        this.x2 = parseInt(data[2]);
-        this.y2 = parseInt(data[3]);
-        this.id = parseInt(data[4]);
-        this.color = data[5];
+        this.x1 = parseInt(data[1]);
+        this.y1 = parseInt(data[2]);
+        this.x2 = parseInt(data[3]);
+        this.y2 = parseInt(data[4]);
+        this.id = parseInt(data[5]);
+        this.stroke = data[6];
     };
     copy(operation : string){
-        this.x1 = this.x1 + 50;
-        this.x2 = this.x2 + 50;
-        if(operation === "copy"){
-        }
-        this.line = this.renderer.createElement('line', 'svg');
-        this.line.setAttribute("x1", this.x1.toString());
-        this.line.setAttribute("y1", this.y1.toString());
-        this.line.setAttribute("x2", this.x2.toString());
-        this.line.setAttribute("y2", this.y2.toString());
-        this.line.setAttribute("id", this.id.toString());
-        this.line.setAttribute("stroke", "black");
-        this.renderer.appendChild(this.svg.nativeElement, this.line);
+    if(operation === "copy"){
+    this.x1 = this.x1 + 50;
+    this.x2 = this.x2 + 50;
     }
-
+    this.line = this.renderer.createElement('line', 'svg');
+    this.renderer.appendChild(this.svg.nativeElement, this.line);
+    this.line.setAttribute("id", this.id.toString());
+    this.set();
+    
+    }
+ 
     set(){
-        this.line.setAttribute("x1", this.x1.toString());
-        this.line.setAttribute("y1", this.y1.toString());
-        this.line.setAttribute("x2", this.x2.toString());
-        this.line.setAttribute("y2", this.y2.toString());
-        this.line.setAttribute("id", this.id.toString());
-        this.line.setAttribute("stroke", "black");
+    this.line = document.getElementById(this.id.toString());
+    this.line.setAttribute("x1", this.x1.toString());
+    this.line.setAttribute("y1", this.y1.toString());
+    this.line.setAttribute("x2", this.x2.toString());
+    this.line.setAttribute("y2", this.y2.toString());
+    this.line.setAttribute("id", this.id.toString());
+    this.line.setAttribute("stroke", this.stroke.toString());
+    this.line.setAttribute("stroke-width", "3");
+
     }
 }
