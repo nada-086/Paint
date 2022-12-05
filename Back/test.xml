@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<Shapes>
+    <shapes>
+        <Attributes>circle,43,2,4,6,red,blue</Attributes>
+    </shapes>
+    <shapes>
+        <Attributes>circle,43,2,4,1,red,yellooooooow</Attributes>
+    </shapes>
+    <shapes>
+        <Attributes>rectangle,0,43,2,4,15,pinky,winky</Attributes>
+    </shapes>
+</Shapes>

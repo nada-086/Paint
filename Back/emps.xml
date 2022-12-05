@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<Shapes>
+    <circle>
+        <Attributes>circle,43,54,23,54,red</Attributes>
+    </circle>
+    <rectangle>
+        <Attributes>rectangle,4,3,54,23,54,yellow</Attributes>
+    </rectangle>
+</Shapes>
